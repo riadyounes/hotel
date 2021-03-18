@@ -1,13 +1,9 @@
 package com.agendamento.hotel.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 
 @Entity
-
 public class Hotel {
 
     @Id
@@ -16,6 +12,7 @@ public class Hotel {
     private String nome;
     private Float classificacao;
 
+    @OneToOne
     private Endereco endereco;
 
     public Hotel() {
@@ -44,5 +41,13 @@ public class Hotel {
 
     public void setClassificacao(Float classificacao) {
         this.classificacao = classificacao;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
 }

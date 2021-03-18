@@ -24,6 +24,8 @@ public class Reserva {
 
 
 
+
+
     public Reserva(Long id, LocalDate data_entrada, LocalDate data_saida, Float preco_total) {
         super();
         this.id = id;
