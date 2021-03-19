@@ -99,4 +99,5 @@ public class Hospede implements Serializable {
         this.nacionalidade = nacionalidade;
     }
 
+
 }
