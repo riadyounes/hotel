@@ -11,6 +11,7 @@ import java.util.Optional;
 
 @Service
 public class HospedeService {
+
     private final HospedeRepository hospedeRepository;
 
     @Autowired
@@ -22,8 +23,8 @@ public class HospedeService {
         return hospedeRepository.save(hospede);
     }
 
-    public Optional<Hospede> getById(Long id) {
-        return hospedeRepository.findById(id);
+    public Optional<Hospede> findOne(long id){
+        return  hospedeRepository.findById(id);
     }
 
     public List<Hospede> ListAllHospede() {

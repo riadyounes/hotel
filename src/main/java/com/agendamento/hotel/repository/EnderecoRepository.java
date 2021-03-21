@@ -1,12 +1,10 @@
 package com.agendamento.hotel.repository;
 
-import com.agendamento.hotel.model.Hospede;
+import com.agendamento.hotel.model.Endereco;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
 @Repository
-public interface HospedeRepository extends JpaRepository <Hospede, Long> {
+public interface EnderecoRepository extends JpaRepository<Endereco, Long> {
 
 }

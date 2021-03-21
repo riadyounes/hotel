@@ -12,6 +12,7 @@ public class Hotel {
     private String nome;
     private Float classificacao;
 
+
     @OneToOne
     private Endereco endereco;
 
