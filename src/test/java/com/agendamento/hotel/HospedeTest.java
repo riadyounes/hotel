@@ -44,7 +44,7 @@ public class HospedeTest {
 
         hospedeService.cadastraHospede(hospede);
 
-        Optional<Hospede> result = hospedeService.getById(hospede.getId());
+        Optional<Hospede> result = hospedeService.findOne(hospede.getId());
         Assertions.assertTrue(result.isPresent());
     }
 
@@ -111,6 +111,5 @@ public class HospedeTest {
 
         List<Hospede> lista = hospedeService.ListAllHospede();
         Assertions.assertEquals(0, lista.size());
-
     }
 }
