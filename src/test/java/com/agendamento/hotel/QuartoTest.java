@@ -81,6 +81,8 @@ public class QuartoTest {
 
     @Test
     void deleteQuarto(){
+        List<Quarto> before = quartoService.listAllQuarto();
+        
         Quarto quarto = new Quarto();
         quarto.setNumero("666");
         quarto.setPreco((float) 299.99);
@@ -92,8 +94,8 @@ public class QuartoTest {
         resultdb.setId(resultdb.getId());
         quartoService.delete(resultdb.getId());
 
-        List<Quarto> list = quartoService.listAllQuarto();
-        Assertions.assertEquals(0,list.size());
+        List<Quarto> after = quartoService.listAllQuarto();
+         Assertions.assertEquals(after.size(), before.size());
 
     }
 }
