@@ -1,7 +1,7 @@
 package com.agendamento.hotel.controller;
 
 import com.agendamento.hotel.model.Endereco;
-import com.agendamento.hotel.model.Hospede;
+
 import com.agendamento.hotel.service.EnderecoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
