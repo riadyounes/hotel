@@ -103,6 +103,8 @@ public class HotelTest {
 
      @Test
      void destroy() {
+         List<Hotel> before = hotelService.index();
+
          // Endereco endereco = new Endereco();
          // endereco.setEstado("Paraná");
          // endereco.setCidade("Foz do Iguaçu");
@@ -120,8 +122,8 @@ public class HotelTest {
          result.setId(result.getId());
          hotelService.destroy(result.getId());
 
-         List<Hotel> list = hotelService.index();
-         Assertions.assertEquals(0, list.size());
+         List<Hotel> after = hotelService.index();
+         Assertions.assertEquals(after.size(), before.size());
 
      }
 
