@@ -1,15 +1,11 @@
 package com.agendamento.hotel.service;
 
 import com.agendamento.hotel.model.Endereco;
-import com.agendamento.hotel.model.Hospede;
 import com.agendamento.hotel.repository.EnderecoRepository;
-import com.agendamento.hotel.repository.HospedeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
-
 
 @Service
 public class EnderecoService {
