@@ -81,6 +81,7 @@ public class UsuarioTest {
 
     @Test
     void deleteUsuario(){
+        List<Usuario> before = usuarioService.listAllUsuario();
 
         Usuario usuario = new Usuario();
         usuario.setNome("edinho");
@@ -92,8 +93,8 @@ public class UsuarioTest {
         resultdb.setId(resultdb.getId());
         usuarioService.delete(resultdb.getId());
 
-        List<Usuario> list = usuarioService.listAllUsuario();
-        Assertions.assertEquals(0,list.size());
+        List<Usuario> after = usuarioService.listAllUsuario();
+         Assertions.assertEquals(after.size(), before.size());
 
     }
 }
