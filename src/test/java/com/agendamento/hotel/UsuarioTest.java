@@ -46,6 +46,7 @@ public class UsuarioTest {
 
     @Test
     void listAllUsuario(){
+        List<Usuario> before = usuarioService.listAllUsuario();
 
         Usuario usuario = new Usuario();
         usuario.setNome("edinho");
@@ -60,8 +61,8 @@ public class UsuarioTest {
         usuarioService.saveUsuario(usuario);
         usuarioService.saveUsuario(usuario2);
 
-        List<Usuario> list = usuarioService.listAllUsuario();
-        Assertions.assertEquals(2, list.size());
+        List<Usuario> after = usuarioService.listAllUsuario();
+        Assertions.assertEquals(after.size(), before.size()+2);
     }
 
     @Test
