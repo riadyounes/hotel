@@ -13,11 +13,18 @@ public class Hotel {
     private Float classificacao;
 
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="endereco_id")
     private Endereco endereco;
 
     public Hotel() {
 
+    }
+
+    public Hotel(String nome, Float classificacao, Endereco endereco) {
+        this.nome = nome;
+        this.classificacao = classificacao;
+        this.endereco = endereco;
     }
 
     public Long getId() {
