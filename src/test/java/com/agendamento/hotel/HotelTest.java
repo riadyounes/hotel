@@ -7,28 +7,31 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 
 import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
+@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
 public class HotelTest {
     @Autowired
     private HotelService hotelService;
 
     @Test
     void store() {
-        // Endereco endereco = new Endereco();
-        // endereco.setEstado("Paraná");
-        // endereco.setCidade("Foz do Iguaçu");
-        // endereco.setLogradouro("Rua Fagundes Varela");
-        // endereco.setNumero("664");
-        // endereco.setComplemento("apto 01");
+         Endereco endereco = new Endereco();
+         endereco.setEstado("Paraná");
+         endereco.setCidade("Foz do Iguaçu");
+         endereco.setLogradouro("Rua Fagundes Varela");
+         endereco.setNumero("664");
+         endereco.setComplemento("apto 01");
 
         Hotel hotel = new Hotel();
-        hotel.setNome("Victor Star Hotel");
+        hotel.setNome("Victor Star Hotel store");
         hotel.setClassificacao((float)15);
-        // hotel.setEndereco(endereco);
+         hotel.setEndereco(endereco);
 
         Hotel result = hotelService.store(hotel);
         Assertions.assertEquals(hotel, result);
@@ -36,17 +39,17 @@ public class HotelTest {
 
     @Test
     void show() {
-        // Endereco endereco = new Endereco();
-        // endereco.setEstado("Paraná");
-        // endereco.setCidade("Foz do Iguaçu");
-        // endereco.setLogradouro("Rua Fagundes Varela");
-        // endereco.setNumero("664");
-        // endereco.setComplemento("apto 01");
+         Endereco endereco = new Endereco();
+         endereco.setEstado("Paraná");
+         endereco.setCidade("Foz do Iguaçu");
+         endereco.setLogradouro("Rua Fagundes Varela");
+         endereco.setNumero("664");
+         endereco.setComplemento("apto 01");
 
         Hotel hotel = new Hotel();
-        hotel.setNome("Victor Star Hotel");
+        hotel.setNome("Victor Star Hotel show");
         hotel.setClassificacao((float)15);
-        // hotel.setEndereco(endereco);
+         hotel.setEndereco(endereco);
 
         hotelService.store(hotel);
 
@@ -58,22 +61,22 @@ public class HotelTest {
      void index(){
          List<Hotel> before = hotelService.index();
          
-         // Endereco endereco = new Endereco();
-         // endereco.setEstado("Paraná");
-         // endereco.setCidade("Foz do Iguaçu");
-         // endereco.setLogradouro("Rua Fagundes Varela");
-         // endereco.setNumero("664");
-         // endereco.setComplemento("apto 01");
+          Endereco endereco = new Endereco();
+          endereco.setEstado("Paraná");
+          endereco.setCidade("Foz do Iguaçu");
+          endereco.setLogradouro("Rua Fagundes Varela");
+          endereco.setNumero("664");
+          endereco.setComplemento("apto 01");
 
          Hotel hotel = new Hotel();
-         hotel.setNome("Victor Star Hotel");
+         hotel.setNome("Victor Star Hotel index");
          hotel.setClassificacao((float)15);
-         // hotel.setEndereco(endereco);
+         hotel.setEndereco(endereco);
 
          Hotel hotel2 = new Hotel();
-         hotel.setNome("Victor Star Hotel 2");
+         hotel.setNome("Victor Star Hotel index 2");
          hotel.setClassificacao((float)0);
-         // hotel.setEndereco(endereco);
+         hotel.setEndereco(endereco);
 
          hotelService. store(hotel);
          hotelService.store(hotel2);
@@ -84,20 +87,12 @@ public class HotelTest {
 
      @Test
      void update() {
-         // Endereco endereco = new Endereco();
-         // endereco.setEstado("Paraná");
-         // endereco.setCidade("Foz do Iguaçu");
-         // endereco.setLogradouro("Rua Fagundes Varela");
-         // endereco.setNumero("664");
-         // endereco.setComplemento("apto 01");
-
          Hotel hotel = new Hotel();
          hotel.setNome("Victor Star Hotel");
          hotel.setClassificacao((float)15);
-         // hotel.setEndereco(endereco);
 
          Hotel result = hotelService.store(hotel);
-         result.setNome("outro");
+         result.setNome("update");
 
          Hotel update = hotelService.update(result);
          Assertions.assertEquals(result.getNome(), update.getNome());
@@ -107,17 +102,9 @@ public class HotelTest {
      void destroy() {
          List<Hotel> before = hotelService.index();
 
-         // Endereco endereco = new Endereco();
-         // endereco.setEstado("Paraná");
-         // endereco.setCidade("Foz do Iguaçu");
-         // endereco.setLogradouro("Rua Fagundes Varela");
-         // endereco.setNumero("664");
-         // endereco.setComplemento("apto 01");
-
          Hotel hotel = new Hotel();
-         hotel.setNome("Victor Star Hotel");
+         hotel.setNome("Victor Star Hotel delete");
          hotel.setClassificacao((float)15);
-         // hotel.setEndereco(endereco);
 
          Hotel result = hotelService.store(hotel);
 
@@ -126,7 +113,6 @@ public class HotelTest {
 
          List<Hotel> after = hotelService.index();
          Assertions.assertEquals(after.size(), before.size());
-
      }
 
 }
