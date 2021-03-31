@@ -1,9 +1,6 @@
 package com.agendamento.hotel.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Quarto {
@@ -14,6 +11,9 @@ public class Quarto {
     private Float preco;
     private Integer quant_ocupacao;
     private String detalhes;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Hotel hotel;
 
     public Quarto() {
 
@@ -57,5 +57,13 @@ public class Quarto {
 
     public void setDetalhes(String detalhes) {
         this.detalhes = detalhes;
+    }
+
+    public Hotel getHotel() {
+        return hotel;
+    }
+
+    public void setHotel(Hotel hotel) {
+        this.hotel = hotel;
     }
 }
