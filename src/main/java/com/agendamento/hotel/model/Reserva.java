@@ -19,15 +19,12 @@ public class Reserva {
     private Float preco_total;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "hospede_id")
+    @ManyToOne(cascade = CascadeType.ALL)
     private Hospede hospede;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "quarto_id")
+    @ManyToOne(cascade = CascadeType.ALL)
     private Quarto quarto;
 
     public Reserva() {
