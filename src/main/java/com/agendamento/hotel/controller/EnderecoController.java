@@ -46,12 +46,12 @@ public class EnderecoController {
         return ResponseEntity.ok(enderecoService.findOne(id));
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<?> update (@RequestBody Endereco endereco){
         return ResponseEntity.ok(enderecoService.update(endereco));
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> delete (@RequestBody Endereco endereco){
         return ResponseEntity.ok(null);
     }
