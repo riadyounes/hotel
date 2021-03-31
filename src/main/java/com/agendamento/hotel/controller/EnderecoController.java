@@ -53,6 +53,7 @@ public class EnderecoController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete (@RequestBody Endereco endereco){
+        enderecoService.detele(endereco.getId());
         return ResponseEntity.ok(null);
     }
 

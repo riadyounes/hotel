@@ -51,6 +51,7 @@ public class QuartoController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete (@RequestBody Quarto quarto){
+        quartoService.delete(quarto.getId());
         return ResponseEntity.ok(null);
     }
 

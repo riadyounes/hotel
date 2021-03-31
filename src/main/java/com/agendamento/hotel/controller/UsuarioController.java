@@ -52,6 +52,7 @@ public class UsuarioController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete (@RequestBody Usuario usuario){
+        usuarioService.delete(usuario.getId());
         return ResponseEntity.ok(null);
     }
 }

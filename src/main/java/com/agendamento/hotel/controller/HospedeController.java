@@ -52,6 +52,7 @@ public class HospedeController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete (@RequestBody Hospede hospede){
+        hospedeService.delete(hospede.getId());
         return ResponseEntity.ok(null);
     }
 
