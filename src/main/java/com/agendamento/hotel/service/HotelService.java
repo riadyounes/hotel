@@ -10,39 +10,33 @@ import java.util.Optional;
 
 @Service
 public class HotelService {
-       private final HotelRepository hotelRepository;
+    private final HotelRepository hotelRepository;
 
     @Autowired
     public HotelService(HotelRepository hotelRepository) {
         this.hotelRepository = hotelRepository;
     }
 
-    public Hotel store(Hotel hotel){
+    public Hotel store(Hotel hotel) {
         return hotelRepository.save(hotel);
     }
 
-    public List<Hotel> index(){
+    public List<Hotel> index() {
         return hotelRepository.findAll();
     }
 
-    public Optional<Hotel> show(long id){
-        return  hotelRepository.findById(id);
+    public Optional<Hotel> show(long id) {
+        return hotelRepository.findById(id);
     }
 
     public Hotel update(Hotel hotel) {
-        Optional<Hotel> optionalHotel = this.show(hotel.getId());
-
-        if (optionalHotel.isPresent()){
-            return this.store(hotel);
-        }else {
-            return null;
-        }
+        return hotelRepository.save(hotel);
     }
 
     public void destroy(Long id) {
         Optional<Hotel> optionalHotel = this.show(id);
 
-        if (optionalHotel.isPresent()){
+        if (optionalHotel.isPresent()) {
             hotelRepository.deleteById(id);
         }
     }
