@@ -34,8 +34,14 @@ public class ReservaController {  private final ReservaService reservaService;
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Reserva> update(@RequestBody Reserva reserva){
-        return ResponseEntity.ok(reservaService.update(reserva));
+    public ResponseEntity<Reserva> update(@PathVariable Long id,@RequestBody Reserva reserva){
+        Optional<Reserva> optionalReserva = reservaService.show(id);
+
+        if (optionalReserva.isPresent()){
+            return ResponseEntity.ok(reservaService.update(reserva));
+        }else {
+            return null;
+        }
     }
 
     @DeleteMapping("/{id}")
