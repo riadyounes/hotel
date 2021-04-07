@@ -12,8 +12,12 @@ public class Hotel {
     private String nome;
     private Float classificacao;
 
+<<<<<<< HEAD
+    @OneToOne
+=======
 
     @OneToOne(cascade = CascadeType.ALL)
+>>>>>>> bc07c857a3328621f3237dce2cba03bb07ea4c74
     private Endereco endereco;
 
     public Hotel() {

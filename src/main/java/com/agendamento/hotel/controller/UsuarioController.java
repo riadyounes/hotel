@@ -12,7 +12,11 @@ import java.util.Optional;
 
 
 @RestController
+
+
+
 @RequestMapping("/api/v1/usuarios")
+
 public class UsuarioController {
     private final UsuarioService usuarioService;
 
@@ -52,6 +56,7 @@ public class UsuarioController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete (@RequestBody Usuario usuario){
+
         usuarioService.delete(usuario.getId());
         return ResponseEntity.ok(null);
     }
