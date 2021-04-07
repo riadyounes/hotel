@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/hospede")
+@RequestMapping("/api/v1/hospedes")
 public class HospedeController {
     private final HospedeService hospedeService;
 
@@ -52,6 +52,7 @@ public class HospedeController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete (@RequestBody Hospede hospede){
+        hospedeService.delete(hospede.getId());
         return ResponseEntity.ok(null);
     }
 

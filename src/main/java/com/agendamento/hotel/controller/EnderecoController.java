@@ -1,18 +1,16 @@
 package com.agendamento.hotel.controller;
 
 import com.agendamento.hotel.model.Endereco;
-import com.agendamento.hotel.model.Hospede;
 import com.agendamento.hotel.service.EnderecoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/endereco")
+@RequestMapping("/api/v1/enderecos")
 public class EnderecoController {
 
     private final EnderecoService enderecoService;
@@ -48,13 +46,14 @@ public class EnderecoController {
         return ResponseEntity.ok(enderecoService.findOne(id));
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<?> update (@RequestBody Endereco endereco){
         return ResponseEntity.ok(enderecoService.update(endereco));
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> delete (@RequestBody Endereco endereco){
+        enderecoService.detele(endereco.getId());
         return ResponseEntity.ok(null);
     }
 

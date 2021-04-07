@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/quartos")
+@RequestMapping("/api/v1/quartos")
 public class QuartoController {
     private final QuartoService quartoService;
 
@@ -51,6 +51,9 @@ public class QuartoController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete (@RequestBody Quarto quarto){
+
+        quartoService.delete(quarto.getId());
+
         return ResponseEntity.ok(null);
     }
 

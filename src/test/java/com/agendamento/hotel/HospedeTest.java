@@ -50,6 +50,8 @@ public class HospedeTest {
 
     @Test
     void ListAllHospede() {
+        List<Hospede> before = hospedeService.ListAllHospede();
+        
         LocalDate date = LocalDate.of(2000, 5, 29);
         Hospede hospede = new Hospede();
         hospede.setNome("Riad Younes");
@@ -71,8 +73,8 @@ public class HospedeTest {
         hospedeService.cadastraHospede(hospede);
         hospedeService.cadastraHospede(hospede2);
 
-        List<Hospede> lista = hospedeService.ListAllHospede();
-        Assertions.assertEquals(2, lista.size());
+        List<Hospede> after = hospedeService.ListAllHospede();
+        Assertions.assertEquals(after.size(), before.size()+2);
     }
 
     @Test
@@ -95,6 +97,8 @@ public class HospedeTest {
 
     @Test
     void ExcluirHospede() {
+        List<Hospede> before = hospedeService.ListAllHospede();
+
         LocalDate date = LocalDate.of(2000, 5, 29);
         Hospede hospede = new Hospede();
         hospede.setNome("Riad Younes");
@@ -109,7 +113,7 @@ public class HospedeTest {
         resutdb.setId(resutdb.getId());
         hospedeService.delete(resutdb.getId());
 
-        List<Hospede> lista = hospedeService.ListAllHospede();
-        Assertions.assertEquals(0, lista.size());
+        List<Hospede> after = hospedeService.ListAllHospede();
+        Assertions.assertEquals(after.size(), before.size());
     }
 }

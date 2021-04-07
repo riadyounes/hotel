@@ -46,6 +46,10 @@ public class UsuarioTest {
 
     @Test
     void listAllUsuario(){
+<<<<<<< HEAD
+=======
+        List<Usuario> before = usuarioService.listAllUsuario();
+>>>>>>> bc07c857a3328621f3237dce2cba03bb07ea4c74
 
         Usuario usuario = new Usuario();
         usuario.setNome("edinho");
@@ -60,8 +64,13 @@ public class UsuarioTest {
         usuarioService.saveUsuario(usuario);
         usuarioService.saveUsuario(usuario2);
 
+<<<<<<< HEAD
         List<Usuario> list = usuarioService.listAllUsuario();
         Assertions.assertEquals(2, list.size());
+=======
+        List<Usuario> after = usuarioService.listAllUsuario();
+        Assertions.assertEquals(after.size(), before.size()+2);
+>>>>>>> bc07c857a3328621f3237dce2cba03bb07ea4c74
     }
 
     @Test
@@ -81,6 +90,10 @@ public class UsuarioTest {
 
     @Test
     void deleteUsuario(){
+<<<<<<< HEAD
+=======
+        List<Usuario> before = usuarioService.listAllUsuario();
+>>>>>>> bc07c857a3328621f3237dce2cba03bb07ea4c74
 
         Usuario usuario = new Usuario();
         usuario.setNome("edinho");
@@ -92,8 +105,13 @@ public class UsuarioTest {
         resultdb.setId(resultdb.getId());
         usuarioService.delete(resultdb.getId());
 
+<<<<<<< HEAD
         List<Usuario> list = usuarioService.listAllUsuario();
         Assertions.assertEquals(0,list.size());
+=======
+        List<Usuario> after = usuarioService.listAllUsuario();
+         Assertions.assertEquals(after.size(), before.size());
+>>>>>>> bc07c857a3328621f3237dce2cba03bb07ea4c74
 
     }
 }

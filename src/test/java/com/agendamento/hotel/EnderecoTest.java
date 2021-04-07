@@ -46,6 +46,8 @@ public class EnderecoTest {
 
     @Test
     void listAllEndereco(){
+        List<Endereco> before = enderecoService.ListAllEndereco();
+        
         Endereco endereco = new Endereco();
         endereco.setEstado("Paraná");
         endereco.setCidade("Foz do Iguaçu");
@@ -63,8 +65,8 @@ public class EnderecoTest {
         enderecoService. savedEndereco(endereco);
         enderecoService.savedEndereco(endereco2);
 
-        List<Endereco> list = enderecoService.ListAllEndereco();
-        Assertions.assertEquals(4 , list.size());
+        List<Endereco> after = enderecoService.ListAllEndereco();
+        Assertions.assertEquals(after.size(), before.size()+2);
     }
 
     @Test
@@ -85,6 +87,8 @@ public class EnderecoTest {
 
     @Test
     void deleteEndereco() {
+        List<Endereco> before = enderecoService.ListAllEndereco();
+        
         Endereco endereco = new Endereco();
         endereco.setEstado("Paraná");
         endereco.setCidade("Foz do Iguaçu");
@@ -97,8 +101,8 @@ public class EnderecoTest {
         resultdb.setId(resultdb.getId());
         enderecoService.detele(resultdb.getId());
 
-        List<Endereco> list = enderecoService.ListAllEndereco();
-        Assertions.assertEquals(0, list.size());
+        List<Endereco> after = enderecoService.ListAllEndereco();
+        Assertions.assertEquals(after.size(), before.size());
 
     }
 

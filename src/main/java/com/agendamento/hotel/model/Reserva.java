@@ -1,9 +1,6 @@
 package com.agendamento.hotel.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
@@ -21,21 +18,26 @@ public class Reserva {
 
     private Float preco_total;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    private Usuario usuario;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Hospede hospede;
 
-
-
-
-    public Reserva(Long id, LocalDate data_entrada, LocalDate data_saida, Float preco_total) {
-        super();
-        this.id = id;
-        this.data_entrada = data_entrada;
-        this.data_saida = data_saida;
-        this.preco_total = preco_total;
-    }
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Quarto quarto;
 
     public Reserva() {
+    }
 
+    public Reserva(LocalDate data_entrada, LocalDate data_saida, EnumEstado estado, Float preco_total, Usuario usuario, Hospede hospede, Quarto quarto) {
+        this.data_entrada = data_entrada;
+        this.data_saida = data_saida;
+        this.estado = estado;
+        this.preco_total = preco_total;
+        this.usuario = usuario;
+        this.hospede = hospede;
+        this.quarto = quarto;
     }
 
     public Long getId() {
@@ -70,4 +72,35 @@ public class Reserva {
         this.preco_total = preco_total;
     }
 
+    public EnumEstado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EnumEstado estado) {
+        this.estado = estado;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public Hospede getHospede() {
+        return hospede;
+    }
+
+    public void setHospede(Hospede hospede) {
+        this.hospede = hospede;
+    }
+
+    public Quarto getQuarto() {
+        return quarto;
+    }
+
+    public void setQuarto(Quarto quarto) {
+        this.quarto = quarto;
+    }
 }
