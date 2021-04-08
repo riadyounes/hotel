@@ -33,13 +33,7 @@ public class ReservaService {
     }
 
     public Reserva update(Reserva reserva) {
-        Optional<Reserva> optionalReserva = this.show(reserva.getId());
-
-        if (optionalReserva.isPresent()){
-            return this.store(reserva);
-        }else {
-            return null;
-        }
+        return reservaRepository.save(reserva);
     }
 
     public void destroy(Long id) {
