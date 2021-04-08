@@ -13,7 +13,7 @@ public class Hotel {
     private Float classificacao;
 
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     private Endereco endereco;
 
     public Hotel() {

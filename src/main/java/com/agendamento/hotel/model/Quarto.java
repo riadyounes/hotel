@@ -12,7 +12,7 @@ public class Quarto {
     private Integer quant_ocupacao;
     private String detalhes;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Hotel hotel;
 
     public Quarto() {
