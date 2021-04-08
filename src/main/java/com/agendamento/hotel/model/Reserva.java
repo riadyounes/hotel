@@ -18,13 +18,13 @@ public class Reserva {
 
     private Float preco_total;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     private Usuario usuario;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Hospede hospede;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Quarto quarto;
 
     public Reserva() {

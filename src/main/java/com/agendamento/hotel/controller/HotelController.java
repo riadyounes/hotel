@@ -34,7 +34,7 @@ public class HotelController {
         return ResponseEntity.ok(hotelService.show(id));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("update/{id}")
     public ResponseEntity<Hotel> update(@RequestBody Hotel hotel){
         return ResponseEntity.ok(hotelService.update(hotel));
     }

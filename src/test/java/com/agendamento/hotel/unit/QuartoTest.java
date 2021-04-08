@@ -1,4 +1,4 @@
-package com.agendamento.hotel;
+package com.agendamento.hotel.unit;
 
 import com.agendamento.hotel.model.Quarto;
 import com.agendamento.hotel.service.QuartoService;
