@@ -1,7 +1,6 @@
 package com.agendamento.hotel.controller;
 
 import com.agendamento.hotel.model.Hospede;
-import com.agendamento.hotel.model.Hotel;
 import com.agendamento.hotel.model.Quarto;
 import com.agendamento.hotel.model.Reserva;
 import com.agendamento.hotel.service.HospedeService;
@@ -65,11 +64,6 @@ public class ReservaController {
         }
         return new ResponseEntity<>(list,null,HttpStatus.NO_CONTENT);
     }
-
-
-
-
-
 
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Reserva>> show(@PathVariable Long id){

@@ -45,11 +45,9 @@ public class QuartoTest {
 
     @Test
     void listAllQuarto() {
-<<<<<<< HEAD
-=======
+
         List<Quarto> before = quartoService.listAllQuarto();
-        
->>>>>>> bc07c857a3328621f3237dce2cba03bb07ea4c74
+
         Quarto quarto = new Quarto();
         quarto.setNumero("666");
         quarto.setPreco((float) 299.99);
@@ -65,13 +63,9 @@ public class QuartoTest {
         quartoService.saveQuarto(quarto);
         quartoService.saveQuarto(quarto2);
 
-<<<<<<< HEAD
-        List<Quarto> lista = quartoService.listAllQuarto();
-        Assertions.assertEquals(2, lista.size());
-=======
+
         List<Quarto> after = quartoService.listAllQuarto();
         Assertions.assertEquals(after.size(), before.size()+2);
->>>>>>> bc07c857a3328621f3237dce2cba03bb07ea4c74
     }
 
     @Test
@@ -91,11 +85,8 @@ public class QuartoTest {
 
     @Test
     void deleteQuarto(){
-<<<<<<< HEAD
-=======
         List<Quarto> before = quartoService.listAllQuarto();
-        
->>>>>>> bc07c857a3328621f3237dce2cba03bb07ea4c74
+
         Quarto quarto = new Quarto();
         quarto.setNumero("666");
         quarto.setPreco((float) 299.99);
@@ -107,13 +98,10 @@ public class QuartoTest {
         resultdb.setId(resultdb.getId());
         quartoService.delete(resultdb.getId());
 
-<<<<<<< HEAD
-        List<Quarto> list = quartoService.listAllQuarto();
-        Assertions.assertEquals(0,list.size());
-=======
+
         List<Quarto> after = quartoService.listAllQuarto();
          Assertions.assertEquals(after.size(), before.size());
->>>>>>> bc07c857a3328621f3237dce2cba03bb07ea4c74
+
 
     }
 }

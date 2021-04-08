@@ -34,11 +34,6 @@ public class HotelController {
         return ResponseEntity.ok(hotelService.show(id));
     }
 
-<<<<<<< HEAD
-    @PutMapping("update/{id}")
-    public ResponseEntity<Hotel> update(@RequestBody Hotel hotel){
-        return ResponseEntity.ok(hotelService.update(hotel));
-=======
     @PutMapping("/{id}")
     public ResponseEntity<Hotel> update(@PathVariable Long id, @RequestBody Hotel hotel) {
         Optional<Hotel> optionalHotel = hotelService.show(id);
@@ -49,7 +44,6 @@ public class HotelController {
         } else {
             return null;
         }
->>>>>>> 02627634103d1ab66fb8245c3b06caf51bafc4d7
     }
 
     @DeleteMapping("/{id}")
