@@ -1,4 +1,4 @@
-package com.agendamento.hotel;
+package com.agendamento.hotel.unit;
 
 import com.agendamento.hotel.model.Hospede;
 import com.agendamento.hotel.model.Quarto;
@@ -46,7 +46,9 @@ public class UsuarioTest {
 
     @Test
     void listAllUsuario(){
+
         List<Usuario> before = usuarioService.listAllUsuario();
+
 
         Usuario usuario = new Usuario();
         usuario.setNome("edinho");
@@ -63,6 +65,7 @@ public class UsuarioTest {
 
         List<Usuario> after = usuarioService.listAllUsuario();
         Assertions.assertEquals(after.size(), before.size()+2);
+
     }
 
     @Test
@@ -82,6 +85,7 @@ public class UsuarioTest {
 
     @Test
     void deleteUsuario(){
+
         List<Usuario> before = usuarioService.listAllUsuario();
 
         Usuario usuario = new Usuario();
@@ -93,6 +97,7 @@ public class UsuarioTest {
 
         resultdb.setId(resultdb.getId());
         usuarioService.delete(resultdb.getId());
+
 
         List<Usuario> after = usuarioService.listAllUsuario();
          Assertions.assertEquals(after.size(), before.size());

@@ -1,4 +1,4 @@
-package com.agendamento.hotel;
+package com.agendamento.hotel.unit;
 
 import com.agendamento.hotel.model.Quarto;
 import com.agendamento.hotel.service.QuartoService;
@@ -45,8 +45,9 @@ public class QuartoTest {
 
     @Test
     void listAllQuarto() {
+
         List<Quarto> before = quartoService.listAllQuarto();
-        
+
         Quarto quarto = new Quarto();
         quarto.setNumero("666");
         quarto.setPreco((float) 299.99);
@@ -61,6 +62,7 @@ public class QuartoTest {
 
         quartoService.saveQuarto(quarto);
         quartoService.saveQuarto(quarto2);
+
 
         List<Quarto> after = quartoService.listAllQuarto();
         Assertions.assertEquals(after.size(), before.size()+2);
@@ -84,7 +86,7 @@ public class QuartoTest {
     @Test
     void deleteQuarto(){
         List<Quarto> before = quartoService.listAllQuarto();
-        
+
         Quarto quarto = new Quarto();
         quarto.setNumero("666");
         quarto.setPreco((float) 299.99);
@@ -96,8 +98,10 @@ public class QuartoTest {
         resultdb.setId(resultdb.getId());
         quartoService.delete(resultdb.getId());
 
+
         List<Quarto> after = quartoService.listAllQuarto();
          Assertions.assertEquals(after.size(), before.size());
+
 
     }
 }

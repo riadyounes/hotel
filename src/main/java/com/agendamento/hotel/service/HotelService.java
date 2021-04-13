@@ -1,5 +1,6 @@
 package com.agendamento.hotel.service;
 
+import com.agendamento.hotel.model.Hospede;
 import com.agendamento.hotel.model.Hotel;
 import com.agendamento.hotel.repository.HotelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,4 +41,5 @@ public class HotelService {
             hotelRepository.deleteById(id);
         }
     }
+
 }

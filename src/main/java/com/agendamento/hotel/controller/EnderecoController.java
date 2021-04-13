@@ -41,7 +41,7 @@ public class EnderecoController {
         return new ResponseEntity<>(endercoList, null, HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<Optional<Endereco>> findById(@PathVariable Long id){
         return ResponseEntity.ok(enderecoService.findOne(id));
     }
@@ -50,6 +50,7 @@ public class EnderecoController {
     public ResponseEntity<?> update (@RequestBody Endereco endereco){
         return ResponseEntity.ok(enderecoService.update(endereco));
     }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete (@RequestBody Endereco endereco){
