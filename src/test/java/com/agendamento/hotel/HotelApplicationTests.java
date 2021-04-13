@@ -1,4 +1,4 @@
-package com.agendamento.hotel.unit;
+package com.agendamento.hotel;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

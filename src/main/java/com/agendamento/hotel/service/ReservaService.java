@@ -45,11 +45,16 @@ public class ReservaService {
     }
 
     public List<Reserva> getByHospede(Optional<Hospede> hospede){
-        return reservaRepository.searchByHospede(hospede);
+        if(hospede.isPresent()){
+            return reservaRepository.searchByHospede(hospede.get());
+        }
+        return null;
     }
 
     public List<Reserva> getByQuarto(Optional<Quarto> quarto){
-        return reservaRepository.searchByQuarto(quarto);
+        if (quarto.isPresent()){
+            return reservaRepository.searchByQuarto(quarto.get());
+        }
+        return null;
     }
-
 }
