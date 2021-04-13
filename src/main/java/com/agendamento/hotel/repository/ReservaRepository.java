@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface ReservaRepository extends JpaRepository <Reserva, Long>{
 
 
-    List<Reserva> searchByHospede(Optional<Hospede> hospede);
+    List<Reserva> searchByHospede(Hospede hospede);
 
-    List<Reserva> searchByQuarto(Optional<Quarto> quarto);
+    List<Reserva> searchByQuarto(Quarto quarto);
 }
