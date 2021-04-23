@@ -1,12 +1,15 @@
 package com.agendamento.hotel.controller;
 
 import com.agendamento.hotel.model.Quarto;
+import com.agendamento.hotel.model.Reserva;
 import com.agendamento.hotel.service.QuartoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +31,13 @@ public class QuartoController {
         } catch (Exception e) {
             throw new Exception(e);
         }
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Quarto>> searchByDate(
+            @RequestParam("data_entrada") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data_entrada ,
+            @RequestParam("data_saida") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data_saida){
+        return ResponseEntity.ok(quartoService.searchByDate(data_entrada, data_saida));
     }
 
     @GetMapping
