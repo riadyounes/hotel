@@ -8,6 +8,7 @@ import com.agendamento.hotel.repository.ReservaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +27,10 @@ public class ReservaService {
 
     public List<Reserva> index(){
         return reservaRepository.findAll();
+    }
+
+    public List<Reserva> searchByDate(LocalDate data_entrada, LocalDate data_saida){
+        return reservaRepository.searchByDate(data_entrada, data_saida);
     }
 
     public Optional<Reserva> show(long id){
