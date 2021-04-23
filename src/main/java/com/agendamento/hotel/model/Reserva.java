@@ -1,6 +1,6 @@
 package com.agendamento.hotel.model;
 
-import org.springframework.format.annotation.DateTimeFormat;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -12,8 +12,10 @@ public class Reserva {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate data_entrada;
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate data_saida;
 
     private EnumEstado estado;
