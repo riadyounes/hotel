@@ -8,9 +8,12 @@ import com.agendamento.hotel.service.HotelService;
 import com.agendamento.hotel.service.QuartoService;
 import com.agendamento.hotel.service.ReservaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,7 +28,6 @@ public class ReservaController {
     public ReservaController(ReservaService reservaService, HospedeService hospedeService, HotelService hotelService, QuartoService quartoService) {
         this.reservaService = reservaService;
         this.hospedeService = hospedeService;
-
         this.quartoService = quartoService;
     }
 
@@ -37,6 +39,13 @@ public class ReservaController {
     @GetMapping
     public ResponseEntity<List<Reserva>> index(){
         return ResponseEntity.ok(reservaService.index());
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Reserva>> searchByDate(
+            @RequestParam("data_entrada") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data_entrada ,
+            @RequestParam("data_saida") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data_saida){
+        return ResponseEntity.ok(reservaService.searchByDate(data_entrada, data_saida));
     }
 
     @GetMapping("/hospede/{id}")
