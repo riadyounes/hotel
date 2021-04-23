@@ -1,6 +1,7 @@
 package com.agendamento.hotel.unit;
 
 import com.agendamento.hotel.model.Quarto;
+import com.agendamento.hotel.model.Reserva;
 import com.agendamento.hotel.service.QuartoService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +29,15 @@ public class QuartoTest {
 
         Quarto resultdb = quartoService.saveQuarto(quarto);
         Assertions.assertEquals(quarto, resultdb);
+    }
+
+    @Test
+    void searchByDate() {
+        List<Quarto> result = quartoService.searchByDate(
+                LocalDate.of(2020,05,29),
+                LocalDate.of(2021,05,29));
+
+        Assertions.assertEquals(0, result.size());
     }
 
     @Test
