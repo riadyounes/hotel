@@ -1,10 +1,12 @@
 package com.agendamento.hotel.service;
 
 import com.agendamento.hotel.model.Quarto;
+import com.agendamento.hotel.model.Reserva;
 import com.agendamento.hotel.repository.QuartoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,5 +38,9 @@ public class QuartoService {
     public void delete(long id) {
         Quarto quarto = quartoRepository.getOne(id);
         quartoRepository.delete(quarto);
+    }
+
+    public List<Quarto> searchByDate(LocalDate data_entrada, LocalDate data_saida){
+        return quartoRepository.searchByDate(data_entrada, data_saida);
     }
 }
