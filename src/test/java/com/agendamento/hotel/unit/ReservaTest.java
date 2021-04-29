@@ -24,7 +24,7 @@ public class ReservaTest {
         Reserva reserva = new Reserva();
         reserva.setData_entrada(LocalDate.of(2020, 5, 29));
         reserva.setData_saida(LocalDate.of(2021, 5, 29));
-        reserva.setEstado(EnumEstado.reservado);
+        reserva.setEstado(EnumEstado.RESERVADO);
         reserva.setPreco_total((float) 15);
 
         Reserva result = reservaService.store(reserva);
@@ -45,7 +45,7 @@ public class ReservaTest {
         Reserva reserva = new Reserva();
         reserva.setData_entrada(LocalDate.of(2020, 5, 29));
         reserva.setData_saida(LocalDate.of(2021, 5, 29));
-        reserva.setEstado(EnumEstado.reservado);
+        reserva.setEstado(EnumEstado.RESERVADO);
         reserva.setPreco_total((float) 15);
 
         reservaService.store(reserva);
@@ -61,13 +61,13 @@ public class ReservaTest {
         Reserva reserva = new Reserva();
         reserva.setData_entrada(LocalDate.of(2020, 5, 29));
         reserva.setData_saida(LocalDate.of(2021, 5, 29));
-        reserva.setEstado(EnumEstado.reservado);
+        reserva.setEstado(EnumEstado.RESERVADO);
         reserva.setPreco_total((float) 15);
 
         Reserva reserva2 = new Reserva();
         reserva.setData_entrada(LocalDate.of(2021, 5, 29));
         reserva.setData_saida(LocalDate.of(2023, 5, 29));
-        reserva.setEstado(EnumEstado.reservado);
+        reserva.setEstado(EnumEstado.RESERVADO);
         reserva.setPreco_total((float) 15);
 
         reservaService.store(reserva);
@@ -82,7 +82,7 @@ public class ReservaTest {
           Reserva reserva = new Reserva();
           reserva.setData_entrada(LocalDate.of(2020, 5, 29));
           reserva.setData_saida(LocalDate.of(2021, 5, 29));
-          reserva.setEstado(EnumEstado.reservado);
+          reserva.setEstado(EnumEstado.RESERVADO);
           reserva.setPreco_total((float) 15);
 
          Reserva result = reservaService.store(reserva);
@@ -99,7 +99,7 @@ public class ReservaTest {
           Reserva reserva = new Reserva();
           reserva.setData_entrada(LocalDate.of(2020, 5, 29));
           reserva.setData_saida(LocalDate.of(2021, 5, 29));
-          reserva.setEstado(EnumEstado.reservado);
+          reserva.setEstado(EnumEstado.RESERVADO);
           reserva.setPreco_total((float) 15);
 
          Reserva result = reservaService.store(reserva);
