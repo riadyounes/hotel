@@ -36,6 +36,22 @@ public class ReservaController {
         return ResponseEntity.ok(reservaService.store(reserva));
     }
 
+    @PostMapping("{id}/finalizar")
+    public ResponseEntity<Reserva> finalizarReserva(@PathVariable Long id) {
+        return ResponseEntity.ok(reservaService.finalizarReserva(id));
+    }
+
+    @PostMapping("{id}/em_andamento")
+    public ResponseEntity<Reserva> emAndamentoReserva(@PathVariable Long id) {
+        return ResponseEntity.ok(reservaService.emAndamentoReserva(id));
+    }
+
+    @PostMapping("{id}/cancelar")
+    public ResponseEntity<Reserva> cancelarReserva(@PathVariable Long id) {
+        return ResponseEntity.ok(reservaService.cancelarReserva(id));
+    }
+
+
     @GetMapping
     public ResponseEntity<List<Reserva>> index(){
         return ResponseEntity.ok(reservaService.index());
