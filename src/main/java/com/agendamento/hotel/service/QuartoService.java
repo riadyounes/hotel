@@ -32,7 +32,7 @@ public class QuartoService {
     }
 
     public Quarto update(Quarto quarto) {
-        return  quartoRepository.save(quarto);
+        return quartoRepository.save(quarto);
     }
 
     public void delete(long id) {
@@ -40,7 +40,23 @@ public class QuartoService {
         quartoRepository.delete(quarto);
     }
 
-    public List<Quarto> searchByDate(LocalDate data_entrada, LocalDate data_saida){
-        return quartoRepository.searchByDate(data_entrada, data_saida);
-    }
+
+   // public List<Quarto> searchByDate(LocalDate data_entrada, LocalDate data_saida) {
+
+        
+        
+//         
+//         availible = null, dates = null;
+//        availible = quartoRepository.searchAvailable();
+//        dates = (quartoRepository.searchByDate(data_entrada, data_saida));
+//        for (long i = 0; i < availible.size(); i++) {
+//            for (long x = 0; x < dates.size(); x++) {
+//                if(availible[i][0]){
+//            }
+
+      //  }
+
+
+       // return quartoList;
+    //}
 }
