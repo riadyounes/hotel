@@ -1,9 +1,6 @@
 package com.agendamento.hotel.service;
 
-import com.agendamento.hotel.model.Hospede;
-import com.agendamento.hotel.model.Hotel;
-import com.agendamento.hotel.model.Quarto;
-import com.agendamento.hotel.model.Reserva;
+import com.agendamento.hotel.model.*;
 import com.agendamento.hotel.repository.ReservaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,8 +19,60 @@ public class ReservaService {
     }
 
     public Reserva store(Reserva reserva){
+        reserva.setEstado(EnumEstado.RESERVADO);
         return reservaRepository.save(reserva);
     }
+
+    public Reserva finalizarReserva(Long id) {
+        Reserva reserva = reservaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("reserva não encontrada!!!"));
+
+        if (!reserva.getEstado().equals(EnumEstado.EM_ANDAMENTO)) {
+            throw new RuntimeException("Essa reserva não pode ser finalizada, pois não esta em andamento");
+        }
+
+        if (reserva.getEstado().equals(EnumEstado.FINALIZADO)) {
+            throw new RuntimeException("Reserva já finalizada!!!");
+        }
+
+        reserva.setEstado(EnumEstado.FINALIZADO);
+
+        return reservaRepository.save(reserva);
+    }
+
+    public Reserva emAndamentoReserva(Long id) {
+        Reserva reserva = reservaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("reserva não encontrada!!!"));
+
+        if (!reserva.getEstado().equals(EnumEstado.RESERVADO)) {
+            throw new RuntimeException("Essa reserva ja foi finalizada ou cancelada");
+        }
+        if (reserva.getEstado().equals(EnumEstado.EM_ANDAMENTO)) {
+            throw new RuntimeException("Reserva já em andamento!!!");
+        }
+
+        reserva.setEstado(EnumEstado.EM_ANDAMENTO);
+
+        return reservaRepository.save(reserva);
+    }
+
+    public Reserva cancelarReserva(Long id) {
+        Reserva reserva = reservaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("reserva não encontrada!!!"));
+
+        if (!reserva.getEstado().equals(EnumEstado.RESERVADO)) {
+            throw new RuntimeException("Essa reserva ja foi finalizada ou cancelada");
+        }
+        if (reserva.getEstado().equals(EnumEstado.CANCELADO)) {
+            throw new RuntimeException("Reserva já foi cancelada!!!");
+        }
+
+        reserva.setEstado(EnumEstado.CANCELADO);
+
+        return reservaRepository.save(reserva);
+    }
+
+
 
     public List<Reserva> index(){
         return reservaRepository.findAll();
