@@ -19,26 +19,28 @@ public class HospedeService {
         this.hospedeRepository = hospedeRepository;
     }
 
-    public Hospede cadastraHospede(Hospede hospede) {
+    public Hospede store(Hospede hospede) {
         return hospedeRepository.save(hospede);
     }
 
-    public Optional<Hospede> findOne(long id){
-        return  hospedeRepository.findById(id);
+    public List<Hospede> index() {
+        return hospedeRepository.findAll();
     }
 
-    public List<Hospede> ListAllHospede() {
-        return hospedeRepository.findAll();
+    public Optional<Hospede> show(long id) {
+        return hospedeRepository.findById(id);
     }
 
     public Hospede update(Hospede hospede) {
         return hospedeRepository.save(hospede);
-
     }
 
-    public void delete(long id) {
-        Hospede hospede = hospedeRepository.getOne(id);
-        hospedeRepository.delete(hospede);
+    public void destroy(long id) {
+        Optional<Hospede> optionalHospede = this.show(id);
+
+        if (optionalHospede.isPresent()) {
+            hospedeRepository.deleteById(id);
+        }
     }
 
 

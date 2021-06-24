@@ -4,6 +4,7 @@ import com.agendamento.hotel.model.Endereco;
 import com.agendamento.hotel.repository.EnderecoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -18,24 +19,27 @@ public class EnderecoService {
         this.enderecoRepository = enderecoRepository;
     }
 
-    public Endereco savedEndereco(Endereco endereco) {
+    public Endereco store(Endereco endereco) {
         return enderecoRepository.save(endereco);
     }
 
-    public Optional<Endereco> findOne(long id){
-        return  enderecoRepository.findById(id);
+    public List<Endereco> index() {
+        return enderecoRepository.findAll();
     }
 
-    public List<Endereco> ListAllEndereco() {
-        return enderecoRepository.findAll();
+    public Optional<Endereco> show(long id) {
+        return enderecoRepository.findById(id);
     }
 
     public Endereco update(Endereco endereco) {
         return enderecoRepository.save(endereco);
     }
 
-    public void detele(Long id){
-        Endereco endereco = enderecoRepository.getOne(id);
-        enderecoRepository.delete(endereco);
+    public void destroy(Long id) {
+        Optional<Endereco> optionalEndereco = this.show(id);
+
+        if (optionalEndereco.isPresent()) {
+            enderecoRepository.deleteById(id);
+        }
     }
 }

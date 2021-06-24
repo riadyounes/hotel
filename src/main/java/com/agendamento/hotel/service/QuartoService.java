@@ -19,44 +19,45 @@ public class QuartoService {
         this.quartoRepository = quartoRepository;
     }
 
-    public Quarto saveQuarto(Quarto quarto) {
+    public Quarto store(Quarto quarto) {
         return quartoRepository.save(quarto);
     }
 
-    public Optional<Quarto> findOne(Long id) {
-        return quartoRepository.findById(id);
+    public List<Quarto> index() {
+        return quartoRepository.findAll();
     }
 
-    public List<Quarto> listAllQuarto() {
-        return quartoRepository.findAll();
+    public Optional<Quarto> show(Long id) {
+        return quartoRepository.findById(id);
     }
 
     public Quarto update(Quarto quarto) {
         return quartoRepository.save(quarto);
     }
 
-    public void delete(long id) {
-        Quarto quarto = quartoRepository.getOne(id);
-        quartoRepository.delete(quarto);
+    public void destroy(long id) {
+        Optional<Quarto> optionalQuarto = this.show(id);
+
+        if (optionalQuarto.isPresent()) {
+            quartoRepository.deleteById(id);
+        }
     }
 
-
-   // public List<Quarto> searchByDate(LocalDate data_entrada, LocalDate data_saida) {
-
-        
-        
-//         
-//         availible = null, dates = null;
+//    public List<Quarto> searchByDate(LocalDate data_entrada, LocalDate data_saida) {
+//
+//
+//        availible = null, dates = null;
 //        availible = quartoRepository.searchAvailable();
 //        dates = (quartoRepository.searchByDate(data_entrada, data_saida));
 //        for (long i = 0; i < availible.size(); i++) {
 //            for (long x = 0; x < dates.size(); x++) {
-//                if(availible[i][0]){
+//                if (availible[i][0]) {
+//                }
+//
 //            }
-
-      //  }
-
-
-       // return quartoList;
-    //}
+//
+//
+//            return quartoList;
+//        }
+//    }
 }
