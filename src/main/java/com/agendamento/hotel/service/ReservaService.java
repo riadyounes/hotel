@@ -18,12 +18,12 @@ public class ReservaService {
         this.reservaRepository = reservaRepository;
     }
 
-    public Reserva store(Reserva reserva){
+    public Reserva store(Reserva reserva) {
         reserva.setEstado(EnumEstado.RESERVADO);
         return reservaRepository.save(reserva);
     }
 
-    public Reserva finalizarReserva(Long id) {
+    public Reserva finalizar(Long id) {
         Reserva reserva = reservaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("reserva não encontrada!!!"));
 
@@ -40,7 +40,7 @@ public class ReservaService {
         return reservaRepository.save(reserva);
     }
 
-    public Reserva emAndamentoReserva(Long id) {
+    public Reserva emAndamento(Long id) {
         Reserva reserva = reservaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("reserva não encontrada!!!"));
 
@@ -56,7 +56,7 @@ public class ReservaService {
         return reservaRepository.save(reserva);
     }
 
-    public Reserva cancelarReserva(Long id) {
+    public Reserva cancelar(Long id) {
         Reserva reserva = reservaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("reserva não encontrada!!!"));
 
@@ -72,18 +72,16 @@ public class ReservaService {
         return reservaRepository.save(reserva);
     }
 
-
-
-    public List<Reserva> index(){
+    public List<Reserva> index() {
         return reservaRepository.findAll();
     }
 
-    public List<Reserva> searchByDate(LocalDate data_entrada, LocalDate data_saida){
+    public List<Reserva> searchByDate(LocalDate data_entrada, LocalDate data_saida) {
         return reservaRepository.searchByDate(data_entrada, data_saida);
     }
 
-    public Optional<Reserva> show(long id){
-        return  reservaRepository.findById(id);
+    public Optional<Reserva> show(long id) {
+        return reservaRepository.findById(id);
     }
 
     public Reserva update(Reserva reserva) {
@@ -93,20 +91,20 @@ public class ReservaService {
     public void destroy(Long id) {
         Optional<Reserva> optionalReserva = this.show(id);
 
-        if (optionalReserva.isPresent()){
+        if (optionalReserva.isPresent()) {
             reservaRepository.deleteById(id);
         }
     }
 
-    public List<Reserva> getByHospede(Optional<Hospede> hospede){
-        if(hospede.isPresent()){
+    public List<Reserva> getByHospede(Optional<Hospede> hospede) {
+        if (hospede.isPresent()) {
             return reservaRepository.searchByHospede(hospede.get());
         }
         return null;
     }
 
-    public List<Reserva> getByQuarto(Optional<Quarto> quarto){
-        if (quarto.isPresent()){
+    public List<Reserva> getByQuarto(Optional<Quarto> quarto) {
+        if (quarto.isPresent()) {
             return reservaRepository.searchByQuarto(quarto.get());
         }
         return null;

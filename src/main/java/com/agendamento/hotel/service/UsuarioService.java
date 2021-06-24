@@ -18,24 +18,27 @@ public class UsuarioService {
         this.usuarioRepository = usuarioRepository;
     }
 
-    public Usuario saveUsuario(Usuario usuario) {
+    public Usuario store(Usuario usuario) {
         return usuarioRepository.save(usuario);
     }
 
-    public Optional<Usuario> findOne(Long id) {
-        return usuarioRepository.findById(id);
+    public List<Usuario> index() {
+        return usuarioRepository.findAll();
     }
 
-    public List<Usuario> listAllUsuario() {
-        return usuarioRepository.findAll();
+    public Optional<Usuario> show(Long id) {
+        return usuarioRepository.findById(id);
     }
 
     public Usuario update(Usuario usuario) {
         return usuarioRepository.save(usuario);
     }
 
-    public void delete(Long id) {
-        Usuario usuario = usuarioRepository.getOne(id);
-        usuarioRepository.delete(usuario);
+    public void destroy(Long id) {
+        Optional<Usuario> optionalUsuario = this.show(id);
+
+        if (optionalUsuario.isPresent()) {
+            usuarioRepository.deleteById(id);
+        }
     }
 }
