@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin
 @RequestMapping("api/v1/reservas")
 public class ReservaController {
     private final QuartoService quartoService;
@@ -31,83 +32,83 @@ public class ReservaController {
         this.quartoService = quartoService;
     }
 
-   @PostMapping
+    @PostMapping
     public ResponseEntity<Reserva> store(@RequestBody Reserva reserva) {
         return ResponseEntity.ok(reservaService.store(reserva));
     }
 
     @PostMapping("{id}/finalizar")
     public ResponseEntity<Reserva> finalizarReserva(@PathVariable Long id) {
-        return ResponseEntity.ok(reservaService.finalizarReserva(id));
+        return ResponseEntity.ok(reservaService.finalizar(id));
     }
 
     @PostMapping("{id}/em_andamento")
     public ResponseEntity<Reserva> emAndamentoReserva(@PathVariable Long id) {
-        return ResponseEntity.ok(reservaService.emAndamentoReserva(id));
+        return ResponseEntity.ok(reservaService.emAndamento(id));
     }
 
     @PostMapping("{id}/cancelar")
     public ResponseEntity<Reserva> cancelarReserva(@PathVariable Long id) {
-        return ResponseEntity.ok(reservaService.cancelarReserva(id));
+        return ResponseEntity.ok(reservaService.cancelar(id));
     }
 
 
     @GetMapping
-    public ResponseEntity<List<Reserva>> index(){
+    public ResponseEntity<List<Reserva>> index() {
         return ResponseEntity.ok(reservaService.index());
     }
 
     @GetMapping("/search")
     public ResponseEntity<List<Reserva>> searchByDate(
-            @RequestParam("data_entrada") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data_entrada ,
-            @RequestParam("data_saida") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data_saida){
+            @RequestParam("data_entrada") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data_entrada,
+            @RequestParam("data_saida") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data_saida) {
         return ResponseEntity.ok(reservaService.searchByDate(data_entrada, data_saida));
     }
 
     @GetMapping("/hospede/{id}")
-    public ResponseEntity<?> searchByHopede(@PathVariable Long id){
-        Optional<Hospede> hospede = hospedeService.findOne(id);
+    public ResponseEntity<?> searchByHopede(@PathVariable Long id) {
+        Optional<Hospede> hospede = hospedeService.show(id);
 
         List<Reserva> list = reservaService.getByHospede(hospede);
 
-        if(hospede.isPresent()){
+        if (hospede.isPresent()) {
 
-            return new ResponseEntity<>(list,null, HttpStatus.OK);
+            return new ResponseEntity<>(list, null, HttpStatus.OK);
         }
-        return new ResponseEntity<>(list,null,HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(list, null, HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/quarto/{id}")
-    public ResponseEntity<?> searchByQuarto(@PathVariable Long id){
-        Optional<Quarto> quarto = quartoService.findOne(id);
-
-        List<Reserva> list = reservaService.getByQuarto(quarto);
-
-        if(quarto.isPresent()){
-
-            return new ResponseEntity<>(list,null, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(list,null,HttpStatus.NO_CONTENT);
-    }
+//    @GetMapping("/quarto/{id}")
+//    public ResponseEntity<Reserva> searchByQuarto(@PathVariable Long id) {
+//        Optional<Quarto> quarto = quartoService.show(id);
+//
+//        List<Reserva> list = reservaService.getByQuarto(quarto);
+//
+//        if (quarto.isPresent()) {
+//
+//            return new ResponseEntity<>(list, null, HttpStatus.OK);
+//        }
+//        return new ResponseEntity<>(list, null, HttpStatus.NO_CONTENT);
+//    }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Reserva>> show(@PathVariable Long id){
+    public ResponseEntity<Optional<Reserva>> show(@PathVariable Long id) {
         return ResponseEntity.ok(reservaService.show(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Reserva> update(@PathVariable Long id,@RequestBody Reserva reserva){
+    public ResponseEntity<Reserva> update(@PathVariable Long id, @RequestBody Reserva reserva) {
         Optional<Reserva> optionalReserva = reservaService.show(id);
 
-        if (optionalReserva.isPresent()){
+        if (optionalReserva.isPresent()) {
             return ResponseEntity.ok(reservaService.update(reserva));
-        }else {
+        } else {
             return null;
         }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Reserva> destroy(@PathVariable Long id){
+    public ResponseEntity<Reserva> destroy(@PathVariable Long id) {
         reservaService.destroy(id);
         return ResponseEntity.ok(null);
     }

@@ -1,5 +1,6 @@
 package com.agendamento.hotel.controller;
 
+import com.agendamento.hotel.model.Hotel;
 import com.agendamento.hotel.model.Quarto;
 import com.agendamento.hotel.model.Reserva;
 import com.agendamento.hotel.service.QuartoService;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/v1/quartos")
 public class QuartoController {
     private final QuartoService quartoService;
@@ -24,46 +26,42 @@ public class QuartoController {
     }
 
     @PostMapping
-    public ResponseEntity<?> saveQuarto(@RequestBody Quarto quarto) throws Exception {
-        try {
-            Quarto quartoSaved = quartoService.saveQuarto(quarto);
-            return new ResponseEntity<>(quartoSaved, null, HttpStatus.CREATED);
-        } catch (Exception e) {
-            throw new Exception(e);
-        }
+    public ResponseEntity<Quarto> store(@RequestBody Quarto quarto) {
+        return ResponseEntity.ok(quartoService.store(quarto));
     }
 
-    @GetMapping("/search")
-    public ResponseEntity<List<Quarto>> searchByDate(
-            @RequestParam("data_entrada") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data_entrada ,
-            @RequestParam("data_saida") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data_saida){
-        return ResponseEntity.ok(quartoService.searchByDate(data_entrada, data_saida));
-    }
+//    @GetMapping("/search")
+//    public ResponseEntity<List<Quarto>> searchByDate(
+//            @RequestParam("data_entrada") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data_entrada,
+//            @RequestParam("data_saida") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data_saida) {
+//        return ResponseEntity.ok(quartoService.searchByDate(data_entrada, data_saida));
+//    }
 
     @GetMapping
-    public ResponseEntity<?> listAll() {
-        List<Quarto> quartoList = quartoService.listAllQuarto();
-        if (!quartoList.isEmpty()) {
-            return new ResponseEntity<>(quartoList, null, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(quartoList, null, HttpStatus.NO_CONTENT);
+    public ResponseEntity<List<Quarto>> index() {
+        return ResponseEntity.ok(quartoService.index());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Quarto>> findById(@PathVariable Long id){
-        return ResponseEntity.ok(quartoService.findOne(id));
+    public ResponseEntity<Optional<Quarto>> show(@PathVariable Long id) {
+        return ResponseEntity.ok(quartoService.show(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update (@RequestBody Quarto quarto){
-        return ResponseEntity.ok(quartoService.update(quarto));
+    public ResponseEntity<Quarto> update(@PathVariable Long id, @RequestBody Quarto quarto) {
+        Optional<Quarto> optionalQuarto = quartoService.show(id);
+
+        if (optionalQuarto.isPresent()) {
+            quarto.setId(id);
+            return ResponseEntity.ok(quartoService.update(quarto));
+        } else {
+            return null;
+        }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete (@RequestBody Quarto quarto){
-
-        quartoService.delete(quarto.getId());
-
+    public ResponseEntity<Quarto> delete(@PathVariable Long id) {
+        quartoService.destroy(id);
         return ResponseEntity.ok(null);
     }
 
