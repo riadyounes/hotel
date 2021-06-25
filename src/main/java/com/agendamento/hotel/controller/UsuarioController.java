@@ -1,5 +1,6 @@
 package com.agendamento.hotel.controller;
 
+import com.agendamento.hotel.model.Hotel;
 import com.agendamento.hotel.model.Usuario;
 import com.agendamento.hotel.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +13,7 @@ import java.util.Optional;
 
 
 @RestController
-
-
-
+@CrossOrigin
 @RequestMapping("/api/v1/usuarios")
 
 public class UsuarioController {
@@ -26,38 +25,35 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public ResponseEntity<?> saveUsuario(@RequestBody Usuario usuario) throws  Exception {
-        try {
-            Usuario usuarioSaved = usuarioService.saveUsuario(usuario);
-            return  new ResponseEntity<>(usuarioSaved, null, HttpStatus.CREATED);
-        } catch (Exception e) {
-            throw new Exception(e);
-        }
+    public ResponseEntity<Usuario> store(@RequestBody Usuario usuario) {
+        return ResponseEntity.ok(usuarioService.store(usuario));
     }
 
     @GetMapping
-    public ResponseEntity<?> listAll() {
-        List<Usuario> usuarioList = usuarioService.listAllUsuario();
-        if (!usuarioList.isEmpty()){
-            return new ResponseEntity<>(usuarioList, null, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(usuarioList, null, HttpStatus.NO_CONTENT);
+    public ResponseEntity<List<Usuario>> index() {
+        return ResponseEntity.ok(usuarioService.index());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Usuario>> findById(@PathVariable Long id){
-        return ResponseEntity.ok(usuarioService.findOne(id));
+    public ResponseEntity<Optional<Usuario>> show(@PathVariable Long id) {
+        return ResponseEntity.ok(usuarioService.show(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update (@RequestBody Usuario usuario){
-        return ResponseEntity.ok(usuarioService.update(usuario));
+    public ResponseEntity<Usuario> update(@PathVariable Long id, @RequestBody Usuario usuario) {
+        Optional<Usuario> optionalUsuario = usuarioService.show(id);
+
+        if (optionalUsuario.isPresent()) {
+            usuario.setId(id);
+            return ResponseEntity.ok(usuarioService.update(usuario));
+        } else {
+            return null;
+        }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete (@RequestBody Usuario usuario){
-
-        usuarioService.delete(usuario.getId());
+    public ResponseEntity<Usuario> destroy(@PathVariable Long id) {
+        usuarioService.destroy(id);
         return ResponseEntity.ok(null);
     }
 }

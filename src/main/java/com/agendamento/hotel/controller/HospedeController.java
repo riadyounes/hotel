@@ -1,15 +1,18 @@
 package com.agendamento.hotel.controller;
 
 import com.agendamento.hotel.model.Hospede;
+import com.agendamento.hotel.model.Hotel;
 import com.agendamento.hotel.service.HospedeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/v1/hospedes")
 public class HospedeController {
     private final HospedeService hospedeService;
@@ -20,39 +23,35 @@ public class HospedeController {
     }
 
     @PostMapping
-    public ResponseEntity<?> cadastraHospede(@RequestBody Hospede hospede) throws Exception {
-        try {
-            Hospede hospedeSaved = hospedeService.cadastraHospede(hospede);
-            return new ResponseEntity<>(hospedeSaved, null, HttpStatus.CREATED);
-        } catch (Exception e) {
-            throw new Exception(e);
-        }
+    public ResponseEntity<Hospede> store(@RequestBody Hospede hospede) {
+        return ResponseEntity.ok(hospedeService.store(hospede));
     }
 
     @GetMapping
-    public ResponseEntity<?> listAll() {
-
-        List<Hospede> hospedeList = hospedeService.ListAllHospede();
-
-        if (!hospedeList.isEmpty()) {
-            return new ResponseEntity<>(hospedeList, null, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(hospedeList, null, HttpStatus.NO_CONTENT);
+    public ResponseEntity<List<Hospede>> index() {
+        return ResponseEntity.ok(hospedeService.index());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Hospede>> findById(@PathVariable Long id){
-        return ResponseEntity.ok(hospedeService.findOne(id));
+    public ResponseEntity<Optional<Hospede>> show(@PathVariable Long id) {
+        return ResponseEntity.ok(hospedeService.show(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update (@RequestBody Hospede hospede){
-        return ResponseEntity.ok(hospedeService.update(hospede));
+    public ResponseEntity<Hospede> update(@PathVariable Long id, @RequestBody Hospede hospede) {
+        Optional<Hospede> optionalHospede = hospedeService.show(id);
+
+        if (optionalHospede.isPresent()) {
+            hospede.setId(id);
+            return ResponseEntity.ok(hospedeService.update(hospede));
+        } else {
+            return null;
+        }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete (@RequestBody Hospede hospede){
-        hospedeService.delete(hospede.getId());
+    public ResponseEntity<Hospede> delete(@PathVariable Long id) {
+        hospedeService.destroy(id);
         return ResponseEntity.ok(null);
     }
 
