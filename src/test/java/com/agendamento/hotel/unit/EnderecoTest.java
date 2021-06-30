@@ -16,7 +16,7 @@ public class EnderecoTest {
     private EnderecoService enderecoService;
 
     @Test
-    void savedEndereco() {
+    void store() {
 
         Endereco endereco = new Endereco();
         endereco.setEstado("Paraná");
@@ -25,12 +25,12 @@ public class EnderecoTest {
         endereco.setNumero("664");
         endereco.setComplemento("apto 01");
 
-        Endereco resutdb = enderecoService.savedEndereco(endereco);
+        Endereco resutdb = enderecoService.store(endereco);
         Assertions.assertEquals(endereco, resutdb);
     }
 
     @Test
-    void getById() {
+    void show() {
         Endereco endereco = new Endereco();
         endereco.setEstado("Paraná");
         endereco.setCidade("Foz do Iguaçu");
@@ -38,15 +38,15 @@ public class EnderecoTest {
         endereco.setNumero("664");
         endereco.setComplemento("apto 01");
 
-        enderecoService.savedEndereco(endereco);
+        enderecoService.store(endereco);
 
-        Optional<Endereco> result = enderecoService.findOne(endereco.getId());
+        Optional<Endereco> result = enderecoService.show(endereco.getId());
         Assertions.assertTrue(result.isPresent());
     }
 
     @Test
-    void listAllEndereco(){
-        List<Endereco> before = enderecoService.ListAllEndereco();
+    void index(){
+        List<Endereco> before = enderecoService.index();
         
         Endereco endereco = new Endereco();
         endereco.setEstado("Paraná");
@@ -62,15 +62,15 @@ public class EnderecoTest {
         endereco.setNumero("554");
         endereco.setComplemento("apto 01");
 
-        enderecoService. savedEndereco(endereco);
-        enderecoService.savedEndereco(endereco2);
+        enderecoService. store(endereco);
+        enderecoService.store(endereco2);
 
-        List<Endereco> after = enderecoService.ListAllEndereco();
+        List<Endereco> after = enderecoService.index();
         Assertions.assertEquals(after.size(), before.size()+2);
     }
 
     @Test
-    void editEndereco() {
+    void update() {
         Endereco endereco = new Endereco();
         endereco.setEstado("Paraná");
         endereco.setCidade("Foz do Iguaçu");
@@ -78,7 +78,7 @@ public class EnderecoTest {
         endereco.setNumero("664");
         endereco.setComplemento("apto 01");
 
-        Endereco resultdb = enderecoService.savedEndereco(endereco);
+        Endereco resultdb = enderecoService.store(endereco);
         resultdb.setComplemento("ap 02");
 
         Endereco updateEndereco = enderecoService.update(resultdb);
@@ -86,8 +86,8 @@ public class EnderecoTest {
     }
 
     @Test
-    void deleteEndereco() {
-        List<Endereco> before = enderecoService.ListAllEndereco();
+    void destroy() {
+        List<Endereco> before = enderecoService.index();
         
         Endereco endereco = new Endereco();
         endereco.setEstado("Paraná");
@@ -96,12 +96,12 @@ public class EnderecoTest {
         endereco.setNumero("664");
         endereco.setComplemento("apto 01");
 
-        Endereco resultdb = enderecoService.savedEndereco(endereco);
+        Endereco resultdb = enderecoService.store(endereco);
 
         resultdb.setId(resultdb.getId());
-        enderecoService.detele(resultdb.getId());
+        enderecoService.destroy(resultdb.getId());
 
-        List<Endereco> after = enderecoService.ListAllEndereco();
+        List<Endereco> after = enderecoService.index();
         Assertions.assertEquals(after.size(), before.size());
 
     }
