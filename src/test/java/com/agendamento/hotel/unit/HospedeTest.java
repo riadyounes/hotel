@@ -17,7 +17,7 @@ public class HospedeTest {
     private HospedeService hospedeService;
 
     @Test
-    void cadastraHospede() {
+    void store() {
         LocalDate date = LocalDate.of(2000, 5, 29);
         Hospede hospede = new Hospede();
         hospede.setNome("Riad Younes");
@@ -27,12 +27,12 @@ public class HospedeTest {
         hospede.setTelefone("99999-99999");
         hospede.setNacionalidade("Brasil");
 
-        Hospede resutdb = hospedeService.cadastraHospede(hospede);
+        Hospede resutdb = hospedeService.store(hospede);
         Assertions.assertEquals(hospede, resutdb);
     }
 
     @Test
-    void getById() {
+    void show() {
         LocalDate date = LocalDate.of(2000, 5, 29);
         Hospede hospede = new Hospede();
         hospede.setNome("Riad Younes");
@@ -42,15 +42,15 @@ public class HospedeTest {
         hospede.setTelefone("99999-99999");
         hospede.setNacionalidade("Brasil");
 
-        hospedeService.cadastraHospede(hospede);
+        hospedeService.store(hospede);
 
-        Optional<Hospede> result = hospedeService.findOne(hospede.getId());
+        Optional<Hospede> result = hospedeService.show(hospede.getId());
         Assertions.assertTrue(result.isPresent());
     }
 
     @Test
-    void ListAllHospede() {
-        List<Hospede> before = hospedeService.ListAllHospede();
+    void index() {
+        List<Hospede> before = hospedeService.index();
         
         LocalDate date = LocalDate.of(2000, 5, 29);
         Hospede hospede = new Hospede();
@@ -70,15 +70,15 @@ public class HospedeTest {
         hospede.setTelefone("99999-99999");
         hospede.setNacionalidade("Brasil");
 
-        hospedeService.cadastraHospede(hospede);
-        hospedeService.cadastraHospede(hospede2);
+        hospedeService.store(hospede);
+        hospedeService.store(hospede2);
 
-        List<Hospede> after = hospedeService.ListAllHospede();
+        List<Hospede> after = hospedeService.index();
         Assertions.assertEquals(after.size(), before.size()+2);
     }
 
     @Test
-    void EditHospede() {
+    void update() {
         LocalDate date = LocalDate.of(2000, 5, 29);
         Hospede hospede = new Hospede();
         hospede.setNome("Riad Younes");
@@ -88,7 +88,7 @@ public class HospedeTest {
         hospede.setTelefone("99999-99999");
         hospede.setNacionalidade("Brasil");
 
-        Hospede resutdb = hospedeService.cadastraHospede(hospede);
+        Hospede resutdb = hospedeService.store(hospede);
 
         resutdb.setTelefone("999999999");
         Hospede updateHospede = hospedeService.update(resutdb);
@@ -96,8 +96,8 @@ public class HospedeTest {
     }
 
     @Test
-    void ExcluirHospede() {
-        List<Hospede> before = hospedeService.ListAllHospede();
+    void destroy() {
+        List<Hospede> before = hospedeService.index();
 
         LocalDate date = LocalDate.of(2000, 5, 29);
         Hospede hospede = new Hospede();
@@ -108,12 +108,12 @@ public class HospedeTest {
         hospede.setTelefone("99999-99999");
         hospede.setNacionalidade("Brasil");
 
-        Hospede resutdb = hospedeService.cadastraHospede(hospede);
+        Hospede resutdb = hospedeService.store(hospede);
 
         resutdb.setId(resutdb.getId());
-        hospedeService.delete(resutdb.getId());
+        hospedeService.destroy(resutdb.getId());
 
-        List<Hospede> after = hospedeService.ListAllHospede();
+        List<Hospede> after = hospedeService.index();
         Assertions.assertEquals(after.size(), before.size());
     }
 }
