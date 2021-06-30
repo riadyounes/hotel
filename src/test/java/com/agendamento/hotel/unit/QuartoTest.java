@@ -20,44 +20,44 @@ public class QuartoTest {
     private QuartoService quartoService;
 
     @Test
-    void saveQuarto() {
+    void store() {
         Quarto quarto = new Quarto();
         quarto.setNumero("666");
         quarto.setPreco((float) 299.99);
         quarto.setQuant_ocupacao(2);
         quarto.setDetalhes("Quarto para duas pessoas com suite master");
 
-        Quarto resultdb = quartoService.saveQuarto(quarto);
+        Quarto resultdb = quartoService.store(quarto);
         Assertions.assertEquals(quarto, resultdb);
     }
 
-    @Test
-    void searchByDate() {
-        List<Quarto> result = quartoService.searchByDate(
-                LocalDate.of(2020,05,29),
-                LocalDate.of(2021,05,29));
+//    @Test
+//    void searchByDate() {
+//        List<Quarto> result = quartoService.searchByDate(
+//                LocalDate.of(2020,05,29),
+//                LocalDate.of(2021,05,29));
+//
+//        Assertions.assertEquals(0, result.size());
+//    }
 
-        Assertions.assertEquals(0, result.size());
-    }
-
     @Test
-    void getById() {
+    void show() {
         Quarto quarto = new Quarto();
         quarto.setNumero("666");
         quarto.setPreco((float) 299.99);
         quarto.setQuant_ocupacao(2);
         quarto.setDetalhes("Quarto para duas pessoas com suite master");
 
-        quartoService.saveQuarto(quarto);
+        quartoService.store(quarto);
 
-        Optional<Quarto> result = quartoService.findOne(quarto.getId());
+        Optional<Quarto> result = quartoService.show(quarto.getId());
         Assertions.assertTrue(result.isPresent());
     }
 
     @Test
-    void listAllQuarto() {
+    void index() {
 
-        List<Quarto> before = quartoService.listAllQuarto();
+        List<Quarto> before = quartoService.index();
 
         Quarto quarto = new Quarto();
         quarto.setNumero("666");
@@ -71,23 +71,23 @@ public class QuartoTest {
         quarto2.setQuant_ocupacao(5);
         quarto2.setDetalhes("Quarto para sua familia toda");
 
-        quartoService.saveQuarto(quarto);
-        quartoService.saveQuarto(quarto2);
+        quartoService.store(quarto);
+        quartoService.store(quarto2);
 
 
-        List<Quarto> after = quartoService.listAllQuarto();
+        List<Quarto> after = quartoService.index();
         Assertions.assertEquals(after.size(), before.size()+2);
     }
 
     @Test
-    void editQuarto() {
+    void update() {
         Quarto quarto = new Quarto();
         quarto.setNumero("666");
         quarto.setPreco((float) 299.99);
         quarto.setQuant_ocupacao(2);
         quarto.setDetalhes("Quarto para duas pessoas com suite master");
 
-        Quarto resultdb = quartoService.saveQuarto(quarto);
+        Quarto resultdb = quartoService.store(quarto);
 
         resultdb.setDetalhes("Na verdade a suite ta ruim");
         Quarto updateQuarto = quartoService.update(resultdb);
@@ -95,8 +95,8 @@ public class QuartoTest {
     }
 
     @Test
-    void deleteQuarto(){
-        List<Quarto> before = quartoService.listAllQuarto();
+    void destroy(){
+        List<Quarto> before = quartoService.index();
 
         Quarto quarto = new Quarto();
         quarto.setNumero("666");
@@ -104,13 +104,13 @@ public class QuartoTest {
         quarto.setQuant_ocupacao(2);
         quarto.setDetalhes("Quarto para duas pessoas com suite master");
 
-        Quarto resultdb = quartoService.saveQuarto(quarto);
+        Quarto resultdb = quartoService.store(quarto);
 
         resultdb.setId(resultdb.getId());
-        quartoService.delete(resultdb.getId());
+        quartoService.destroy(resultdb.getId());
 
 
-        List<Quarto> after = quartoService.listAllQuarto();
+        List<Quarto> after = quartoService.index();
          Assertions.assertEquals(after.size(), before.size());
 
 
