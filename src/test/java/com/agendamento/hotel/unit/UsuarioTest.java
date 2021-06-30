@@ -19,35 +19,35 @@ public class UsuarioTest {
     private UsuarioService usuarioService;
 
     @Test
-    void saveUsuario(){
+    void store(){
 
         Usuario usuario = new Usuario();
         usuario.setNome("edinho");
         usuario.setEmail("edinho.pereira95@gmail.com");
         usuario.setSenha("123456");
 
-        Usuario resultdb = usuarioService.saveUsuario(usuario);
+        Usuario resultdb = usuarioService.store(usuario);
         Assertions.assertEquals(usuario, resultdb);
     }
 
     @Test
-    void getById(){
+    void show(){
 
         Usuario usuario = new Usuario();
         usuario.setNome("edinho");
         usuario.setEmail("edinho.pereira95@gmail.com");
         usuario.setSenha("123456");
 
-        usuarioService.saveUsuario(usuario);
+        usuarioService.store(usuario);
 
-        Optional<Usuario> result = usuarioService.findOne(usuario.getId());
+        Optional<Usuario> result = usuarioService.show(usuario.getId());
         Assertions.assertTrue(result.isPresent());
     }
 
     @Test
-    void listAllUsuario(){
+    void index(){
 
-        List<Usuario> before = usuarioService.listAllUsuario();
+        List<Usuario> before = usuarioService.index();
 
 
         Usuario usuario = new Usuario();
@@ -60,23 +60,23 @@ public class UsuarioTest {
         usuario2.setEmail("lio.crooncs@gmail.com");
         usuario2.setSenha("123456");
 
-        usuarioService.saveUsuario(usuario);
-        usuarioService.saveUsuario(usuario2);
+        usuarioService.store(usuario);
+        usuarioService.store(usuario2);
 
-        List<Usuario> after = usuarioService.listAllUsuario();
+        List<Usuario> after = usuarioService.index();
         Assertions.assertEquals(after.size(), before.size()+2);
 
     }
 
     @Test
-    void editUsuario(){
+    void update(){
 
         Usuario usuario = new Usuario();
         usuario.setNome("edinho");
         usuario.setEmail("edinho.pereira95@gmail.com");
         usuario.setSenha("123456");
 
-        Usuario resultdb = usuarioService.saveUsuario(usuario);
+        Usuario resultdb = usuarioService.store(usuario);
 
         resultdb.setNome("Edson Pereira");
         Usuario updateUsuario = usuarioService.update(resultdb);
@@ -84,22 +84,22 @@ public class UsuarioTest {
     }
 
     @Test
-    void deleteUsuario(){
+    void destroy(){
 
-        List<Usuario> before = usuarioService.listAllUsuario();
+        List<Usuario> before = usuarioService.index();
 
         Usuario usuario = new Usuario();
         usuario.setNome("edinho");
         usuario.setEmail("edinho.pereira95@gmail.com");
         usuario.setSenha("123456");
 
-        Usuario resultdb = usuarioService.saveUsuario(usuario);
+        Usuario resultdb = usuarioService.store(usuario);
 
         resultdb.setId(resultdb.getId());
-        usuarioService.delete(resultdb.getId());
+        usuarioService.destroy(resultdb.getId());
 
 
-        List<Usuario> after = usuarioService.listAllUsuario();
+        List<Usuario> after = usuarioService.index();
          Assertions.assertEquals(after.size(), before.size());
 
     }
