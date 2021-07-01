@@ -1,6 +1,5 @@
 package com.agendamento.hotel.unit;
 
-import com.agendamento.hotel.model.Endereco;
 import com.agendamento.hotel.model.Hotel;
 import com.agendamento.hotel.service.HotelService;
 import org.junit.jupiter.api.Assertions;
@@ -21,17 +20,9 @@ public class HotelTest {
 
     @Test
     void store() {
-         Endereco endereco = new Endereco();
-         endereco.setEstado("Paraná");
-         endereco.setCidade("Foz do Iguaçu");
-         endereco.setLogradouro("Rua Fagundes Varela");
-         endereco.setNumero("664");
-         endereco.setComplemento("apto 01");
-
         Hotel hotel = new Hotel();
         hotel.setNome("Victor Star Hotel store");
         hotel.setClassificacao((float)15);
-         hotel.setEndereco(endereco);
 
         Hotel result = hotelService.store(hotel);
         Assertions.assertEquals(hotel, result);
@@ -39,17 +30,9 @@ public class HotelTest {
 
     @Test
     void show() {
-         Endereco endereco = new Endereco();
-         endereco.setEstado("Paraná");
-         endereco.setCidade("Foz do Iguaçu");
-         endereco.setLogradouro("Rua Fagundes Varela");
-         endereco.setNumero("664");
-         endereco.setComplemento("apto 01");
-
         Hotel hotel = new Hotel();
         hotel.setNome("Victor Star Hotel show");
         hotel.setClassificacao((float)15);
-         hotel.setEndereco(endereco);
 
         hotelService.store(hotel);
 
@@ -61,22 +44,13 @@ public class HotelTest {
      void index(){
          List<Hotel> before = hotelService.index();
          
-          Endereco endereco = new Endereco();
-          endereco.setEstado("Paraná");
-          endereco.setCidade("Foz do Iguaçu");
-          endereco.setLogradouro("Rua Fagundes Varela");
-          endereco.setNumero("664");
-          endereco.setComplemento("apto 01");
-
          Hotel hotel = new Hotel();
          hotel.setNome("Victor Star Hotel index");
          hotel.setClassificacao((float)15);
-         hotel.setEndereco(endereco);
 
          Hotel hotel2 = new Hotel();
          hotel.setNome("Victor Star Hotel index 2");
          hotel.setClassificacao((float)0);
-         hotel.setEndereco(endereco);
 
          hotelService. store(hotel);
          hotelService.store(hotel2);
