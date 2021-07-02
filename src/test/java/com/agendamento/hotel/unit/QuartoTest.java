@@ -3,28 +3,33 @@ package com.agendamento.hotel.unit;
 import com.agendamento.hotel.model.Quarto;
 import com.agendamento.hotel.model.Reserva;
 import com.agendamento.hotel.service.QuartoService;
+import com.github.javafaker.Faker;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @SpringBootTest
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class QuartoTest {
 
     @Autowired
     private QuartoService quartoService;
+    private Faker faker = new Faker(new Locale("pt-br"));
 
     @Test
     void store() {
         Quarto quarto = new Quarto();
-        quarto.setNumero("666");
-        quarto.setPreco((float) 299.99);
-        quarto.setQuant_ocupacao(2);
+        quarto.setNumero(faker.random().hex());
+        quarto.setPreco(Float.parseFloat(faker.commerce().price()));
+        quarto.setQuant_ocupacao(faker.number().randomDigitNotZero());
         quarto.setDetalhes("Quarto para duas pessoas com suite master");
 
         Quarto resultdb = quartoService.store(quarto);
@@ -43,9 +48,9 @@ public class QuartoTest {
     @Test
     void show() {
         Quarto quarto = new Quarto();
-        quarto.setNumero("666");
-        quarto.setPreco((float) 299.99);
-        quarto.setQuant_ocupacao(2);
+        quarto.setNumero(faker.random().hex());
+        quarto.setPreco(Float.parseFloat(faker.commerce().price()));
+        quarto.setQuant_ocupacao(faker.number().randomDigitNotZero());
         quarto.setDetalhes("Quarto para duas pessoas com suite master");
 
         quartoService.store(quarto);
@@ -60,15 +65,15 @@ public class QuartoTest {
         List<Quarto> before = quartoService.index();
 
         Quarto quarto = new Quarto();
-        quarto.setNumero("666");
-        quarto.setPreco((float) 299.99);
-        quarto.setQuant_ocupacao(2);
+        quarto.setNumero(faker.random().hex());
+        quarto.setPreco(Float.parseFloat(faker.commerce().price()));
+        quarto.setQuant_ocupacao(faker.number().randomDigitNotZero());
         quarto.setDetalhes("Quarto para duas pessoas com suite master");
 
         Quarto quarto2 = new Quarto();
-        quarto2.setNumero("999");
-        quarto2.setPreco((float) 999.99);
-        quarto2.setQuant_ocupacao(5);
+        quarto2.setNumero(faker.random().hex());
+        quarto2.setPreco(Float.parseFloat(faker.commerce().price()));
+        quarto2.setQuant_ocupacao(faker.number().randomDigitNotZero());
         quarto2.setDetalhes("Quarto para sua familia toda");
 
         quartoService.store(quarto);
@@ -82,9 +87,9 @@ public class QuartoTest {
     @Test
     void update() {
         Quarto quarto = new Quarto();
-        quarto.setNumero("666");
-        quarto.setPreco((float) 299.99);
-        quarto.setQuant_ocupacao(2);
+        quarto.setNumero(faker.random().hex());
+        quarto.setPreco(Float.parseFloat(faker.commerce().price()));
+        quarto.setQuant_ocupacao(faker.number().randomDigitNotZero());
         quarto.setDetalhes("Quarto para duas pessoas com suite master");
 
         Quarto resultdb = quartoService.store(quarto);
@@ -99,9 +104,9 @@ public class QuartoTest {
         List<Quarto> before = quartoService.index();
 
         Quarto quarto = new Quarto();
-        quarto.setNumero("666");
-        quarto.setPreco((float) 299.99);
-        quarto.setQuant_ocupacao(2);
+        quarto.setNumero(faker.random().hex());
+        quarto.setPreco(Float.parseFloat(faker.commerce().price()));
+        quarto.setQuant_ocupacao(faker.number().randomDigitNotZero());
         quarto.setDetalhes("Quarto para duas pessoas com suite master");
 
         Quarto resultdb = quartoService.store(quarto);
