@@ -2,6 +2,7 @@ package com.agendamento.hotel.unit;
 
 import com.agendamento.hotel.model.*;
 import com.agendamento.hotel.service.ReservaService;
+import com.github.javafaker.Faker;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.test.annotation.DirtiesContext.ClassMode;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @SpringBootTest
@@ -18,14 +20,15 @@ import java.util.Optional;
 public class ReservaTest {
     @Autowired
     private ReservaService reservaService;
+    private Faker faker = new Faker(new Locale("pt-br"));
 
     @Test
     void store() {
         Reserva reserva = new Reserva();
         reserva.setData_entrada(LocalDate.of(2020, 5, 29));
         reserva.setData_saida(LocalDate.of(2021, 5, 29));
-        reserva.setEstado(EnumEstado.RESERVADO);
-        reserva.setPreco_total((float) 15);
+        reserva.setEstado(EnumEstado.FINALIZADO);
+        reserva.setPreco_total(Float.parseFloat(faker.commerce().price()));
 
         Reserva result = reservaService.store(reserva);
         Assertions.assertEquals(reserva, result);
@@ -43,10 +46,10 @@ public class ReservaTest {
     @Test
     void show() {
         Reserva reserva = new Reserva();
-        reserva.setData_entrada(LocalDate.of(2020, 5, 29));
-        reserva.setData_saida(LocalDate.of(2021, 5, 29));
-        reserva.setEstado(EnumEstado.RESERVADO);
-        reserva.setPreco_total((float) 15);
+        reserva.setData_entrada(LocalDate.of(2020, 6, 30));
+        reserva.setData_saida(LocalDate.of(2021, 7, 15));
+        reserva.setEstado(EnumEstado.EM_ANDAMENTO);
+        reserva.setPreco_total(Float.parseFloat(faker.commerce().price()));
 
         reservaService.store(reserva);
 
@@ -59,16 +62,16 @@ public class ReservaTest {
         List<Reserva> before = reservaService.index();
 
         Reserva reserva = new Reserva();
-        reserva.setData_entrada(LocalDate.of(2020, 5, 29));
-        reserva.setData_saida(LocalDate.of(2021, 5, 29));
+        reserva.setData_entrada(LocalDate.of(2021, 7, 20));
+        reserva.setData_saida(LocalDate.of(2021, 7, 23));
         reserva.setEstado(EnumEstado.RESERVADO);
-        reserva.setPreco_total((float) 15);
+        reserva.setPreco_total(Float.parseFloat(faker.commerce().price()));
 
         Reserva reserva2 = new Reserva();
-        reserva.setData_entrada(LocalDate.of(2021, 5, 29));
-        reserva.setData_saida(LocalDate.of(2023, 5, 29));
-        reserva.setEstado(EnumEstado.RESERVADO);
-        reserva.setPreco_total((float) 15);
+        reserva.setData_entrada(LocalDate.of(2021, 5, 1));
+        reserva.setData_saida(LocalDate.of(2023, 5, 3));
+        reserva.setEstado(EnumEstado.EM_ANDAMENTO);
+        reserva.setPreco_total(Float.parseFloat(faker.commerce().price()));
 
         reservaService.store(reserva);
         reservaService.store(reserva2);
@@ -80,13 +83,13 @@ public class ReservaTest {
       @Test
       void update() {
           Reserva reserva = new Reserva();
-          reserva.setData_entrada(LocalDate.of(2020, 5, 29));
-          reserva.setData_saida(LocalDate.of(2021, 5, 29));
-          reserva.setEstado(EnumEstado.RESERVADO);
-          reserva.setPreco_total((float) 15);
+          reserva.setData_entrada(LocalDate.of(2020, 3, 4));
+          reserva.setData_saida(LocalDate.of(2020, 3, 7));
+          reserva.setEstado(EnumEstado.CANCELADO);
+          reserva.setPreco_total(Float.parseFloat(faker.commerce().price()));
 
          Reserva result = reservaService.store(reserva);
-          reserva.setData_saida(LocalDate.of(2020, 8, 29));
+          reserva.setData_saida(LocalDate.of(2020, 3, 8));
 
           Reserva update = reservaService.update(result);
           Assertions.assertEquals(result.getData_saida(), update.getData_saida());
@@ -97,10 +100,10 @@ public class ReservaTest {
           List<Reserva> before = reservaService.index();
 
           Reserva reserva = new Reserva();
-          reserva.setData_entrada(LocalDate.of(2020, 5, 29));
-          reserva.setData_saida(LocalDate.of(2021, 5, 29));
+          reserva.setData_entrada(LocalDate.of(2020, 12, 25));
+          reserva.setData_saida(LocalDate.of(2021, 1, 5));
           reserva.setEstado(EnumEstado.RESERVADO);
-          reserva.setPreco_total((float) 15);
+          reserva.setPreco_total(Float.parseFloat(faker.commerce().price()));
 
          Reserva result = reservaService.store(reserva);
 

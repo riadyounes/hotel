@@ -2,30 +2,36 @@ package com.agendamento.hotel.unit;
 
 import com.agendamento.hotel.model.Hospede;
 import com.agendamento.hotel.service.HospedeService;
+import com.github.javafaker.Faker;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @SpringBootTest
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class HospedeTest {
 
     @Autowired
     private HospedeService hospedeService;
+    private Faker faker = new Faker(new Locale("pt-br"));
 
     @Test
     void store() {
         LocalDate date = LocalDate.of(2000, 5, 29);
         Hospede hospede = new Hospede();
-        hospede.setNome("Riad Younes");
-        hospede.setCpf("99999999999");
-        hospede.setEmail("riad.younes@hotmail.com");
+        hospede.setNome(faker.name().name());
+        hospede.setCpf(faker.idNumber().valid());
+        hospede.setEmail(faker.internet().emailAddress());
         hospede.setData_nascimento(date);
-        hospede.setTelefone("99999-99999");
-        hospede.setNacionalidade("Brasil");
+        hospede.setTelefone(faker.phoneNumber().cellPhone());
+        hospede.setNacionalidade(faker.nation().nationality());
 
         Hospede resutdb = hospedeService.store(hospede);
         Assertions.assertEquals(hospede, resutdb);
@@ -35,12 +41,12 @@ public class HospedeTest {
     void show() {
         LocalDate date = LocalDate.of(2000, 5, 29);
         Hospede hospede = new Hospede();
-        hospede.setNome("Riad Younes");
-        hospede.setCpf("99999999999");
-        hospede.setEmail("riad.younes@hotmail.com");
+        hospede.setNome(faker.name().name());
+        hospede.setCpf(faker.idNumber().valid());
+        hospede.setEmail(faker.internet().emailAddress());
         hospede.setData_nascimento(date);
-        hospede.setTelefone("99999-99999");
-        hospede.setNacionalidade("Brasil");
+        hospede.setTelefone(faker.phoneNumber().cellPhone());
+        hospede.setNacionalidade(faker.nation().nationality());
 
         hospedeService.store(hospede);
 
@@ -54,21 +60,21 @@ public class HospedeTest {
         
         LocalDate date = LocalDate.of(2000, 5, 29);
         Hospede hospede = new Hospede();
-        hospede.setNome("Riad Younes");
-        hospede.setCpf("99999999999");
-        hospede.setEmail("riad.younes@hotmail.com");
+        hospede.setNome(faker.name().name());
+        hospede.setCpf(faker.idNumber().valid());
+        hospede.setEmail(faker.internet().emailAddress());
         hospede.setData_nascimento(date);
-        hospede.setTelefone("99999-99999");
-        hospede.setNacionalidade("Brasil");
+        hospede.setTelefone(faker.phoneNumber().cellPhone());
+        hospede.setNacionalidade(faker.nation().nationality());
 
         LocalDate date2 = LocalDate.of(1995, 6, 29);
         Hospede hospede2 = new Hospede();
-        hospede.setNome("Edinho");
-        hospede.setCpf("99999999999");
-        hospede.setEmail("edinhop.Hotsex.com");
+        hospede.setNome(faker.name().name());
+        hospede.setCpf(faker.idNumber().valid());
+        hospede.setEmail(faker.internet().emailAddress());
         hospede.setData_nascimento(date2);
-        hospede.setTelefone("99999-99999");
-        hospede.setNacionalidade("Brasil");
+        hospede.setTelefone(faker.phoneNumber().cellPhone());
+        hospede.setNacionalidade(faker.nation().nationality());
 
         hospedeService.store(hospede);
         hospedeService.store(hospede2);
@@ -81,16 +87,16 @@ public class HospedeTest {
     void update() {
         LocalDate date = LocalDate.of(2000, 5, 29);
         Hospede hospede = new Hospede();
-        hospede.setNome("Riad Younes");
-        hospede.setCpf("999999999999");
-        hospede.setEmail("riad.younes@hotmail.com");
+        hospede.setNome(faker.name().name());
+        hospede.setCpf(faker.idNumber().valid());
+        hospede.setEmail(faker.internet().emailAddress());
         hospede.setData_nascimento(date);
-        hospede.setTelefone("99999-99999");
-        hospede.setNacionalidade("Brasil");
+        hospede.setTelefone(faker.phoneNumber().cellPhone());
+        hospede.setNacionalidade(faker.nation().nationality());
 
         Hospede resutdb = hospedeService.store(hospede);
 
-        resutdb.setTelefone("999999999");
+        resutdb.setTelefone(faker.phoneNumber().cellPhone());
         Hospede updateHospede = hospedeService.update(resutdb);
         Assertions.assertEquals(resutdb.getTelefone(), updateHospede.getTelefone());
     }
@@ -101,12 +107,12 @@ public class HospedeTest {
 
         LocalDate date = LocalDate.of(2000, 5, 29);
         Hospede hospede = new Hospede();
-        hospede.setNome("Riad Younes");
-        hospede.setCpf("999999999999");
-        hospede.setEmail("riad.younes@hotmail.com");
+        hospede.setNome(faker.name().name());
+        hospede.setCpf(faker.idNumber().valid());
+        hospede.setEmail(faker.internet().emailAddress());
         hospede.setData_nascimento(date);
-        hospede.setTelefone("99999-99999");
-        hospede.setNacionalidade("Brasil");
+        hospede.setTelefone(faker.phoneNumber().cellPhone());
+        hospede.setNacionalidade(faker.nation().nationality());
 
         Hospede resutdb = hospedeService.store(hospede);
 
