@@ -2,6 +2,7 @@ package com.agendamento.hotel.unit;
 
 import com.agendamento.hotel.model.Hotel;
 import com.agendamento.hotel.service.HotelService;
+import com.github.javafaker.Faker;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @SpringBootTest
@@ -17,12 +19,15 @@ import java.util.Optional;
 public class HotelTest {
     @Autowired
     private HotelService hotelService;
+    private Faker faker = new Faker(new Locale("pt-br"));
 
     @Test
     void store() {
+
+        System.out.println(faker.name().fullName());
         Hotel hotel = new Hotel();
-        hotel.setNome("Victor Star Hotel store");
-        hotel.setClassificacao((float)15);
+        hotel.setNome(faker.name().fullName());
+        hotel.setClassificacao((float)faker.number().numberBetween(1, 5));
 
         Hotel result = hotelService.store(hotel);
         Assertions.assertEquals(hotel, result);
@@ -31,8 +36,8 @@ public class HotelTest {
     @Test
     void show() {
         Hotel hotel = new Hotel();
-        hotel.setNome("Victor Star Hotel show");
-        hotel.setClassificacao((float)15);
+        hotel.setNome(faker.name().fullName());
+        hotel.setClassificacao((float)faker.number().numberBetween(1, 5));
 
         hotelService.store(hotel);
 
@@ -40,53 +45,53 @@ public class HotelTest {
         Assertions.assertTrue(result.isPresent());
     }
 
-     @Test
-     void index(){
-         List<Hotel> before = hotelService.index();
-         
-         Hotel hotel = new Hotel();
-         hotel.setNome("Victor Star Hotel index");
-         hotel.setClassificacao((float)15);
+    @Test
+    void index() {
+        List<Hotel> before = hotelService.index();
 
-         Hotel hotel2 = new Hotel();
-         hotel.setNome("Victor Star Hotel index 2");
-         hotel.setClassificacao((float)0);
+        Hotel hotel = new Hotel();
+        hotel.setNome(faker.name().fullName());
+        hotel.setClassificacao((float)faker.number().numberBetween(1, 5));
 
-         hotelService. store(hotel);
-         hotelService.store(hotel2);
+        Hotel hotel2 = new Hotel();
+        hotel.setNome(faker.name().fullName());
+        hotel.setClassificacao((float) faker.number().numberBetween(1, 5));
 
-         List<Hotel> after = hotelService.index();
-         Assertions.assertEquals(after.size(), before.size()+2);
-     }
+        hotelService.store(hotel);
+        hotelService.store(hotel2);
 
-     @Test
-     void update() {
-         Hotel hotel = new Hotel();
-         hotel.setNome("Victor Star Hotel");
-         hotel.setClassificacao((float)15);
+        List<Hotel> after = hotelService.index();
+        Assertions.assertEquals(after.size(), before.size() + 2);
+    }
 
-         Hotel result = hotelService.store(hotel);
-         result.setNome("update");
+    @Test
+    void update() {
+        Hotel hotel = new Hotel();
+        hotel.setNome(faker.name().fullName());
+        hotel.setClassificacao((float) faker.number().numberBetween(1, 5));
 
-         Hotel update = hotelService.update(result);
-         Assertions.assertEquals(result.getNome(), update.getNome());
-     }
+        Hotel result = hotelService.store(hotel);
+        result.setNome(faker.name().fullName());
 
-     @Test
-     void destroy() {
-         List<Hotel> before = hotelService.index();
+        Hotel update = hotelService.update(result);
+        Assertions.assertEquals(result.getNome(), update.getNome());
+    }
 
-         Hotel hotel = new Hotel();
-         hotel.setNome("Victor Star Hotel delete");
-         hotel.setClassificacao((float)15);
+    @Test
+    void destroy() {
+        List<Hotel> before = hotelService.index();
 
-         Hotel result = hotelService.store(hotel);
+        Hotel hotel = new Hotel();
+        hotel.setNome(faker.name().fullName());
+        hotel.setClassificacao((float) faker.number().numberBetween(1, 5));
 
-         result.setId(result.getId());
-         hotelService.destroy(result.getId());
+        Hotel result = hotelService.store(hotel);
 
-         List<Hotel> after = hotelService.index();
-         Assertions.assertEquals(after.size(), before.size());
-     }
+        result.setId(result.getId());
+        hotelService.destroy(result.getId());
+
+        List<Hotel> after = hotelService.index();
+        Assertions.assertEquals(after.size(), before.size());
+    }
 
 }
