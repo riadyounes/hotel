@@ -1,6 +1,9 @@
 package com.agendamento.hotel.service;
 
-import com.agendamento.hotel.model.*;
+import com.agendamento.hotel.enums.ReservaEstado;
+import com.agendamento.hotel.model.Hospede;
+import com.agendamento.hotel.model.Quarto;
+import com.agendamento.hotel.model.Reserva;
 import com.agendamento.hotel.repository.ReservaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +22,7 @@ public class ReservaService {
     }
 
     public Reserva store(Reserva reserva) {
-        reserva.setEstado(EnumEstado.RESERVADO);
+        reserva.setEstado(ReservaEstado.RESERVADO);
         return reservaRepository.save(reserva);
     }
 
@@ -27,15 +30,15 @@ public class ReservaService {
         Reserva reserva = reservaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("reserva não encontrada!!!"));
 
-        if (!reserva.getEstado().equals(EnumEstado.EM_ANDAMENTO)) {
+        if (!reserva.getEstado().equals(ReservaEstado.EM_ANDAMENTO)) {
             throw new RuntimeException("Essa reserva não pode ser finalizada, pois não esta em andamento");
         }
 
-        if (reserva.getEstado().equals(EnumEstado.FINALIZADO)) {
+        if (reserva.getEstado().equals(ReservaEstado.FINALIZADO)) {
             throw new RuntimeException("Reserva já finalizada!!!");
         }
 
-        reserva.setEstado(EnumEstado.FINALIZADO);
+        reserva.setEstado(ReservaEstado.FINALIZADO);
 
         return reservaRepository.save(reserva);
     }
@@ -44,14 +47,14 @@ public class ReservaService {
         Reserva reserva = reservaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("reserva não encontrada!!!"));
 
-        if (!reserva.getEstado().equals(EnumEstado.RESERVADO)) {
+        if (!reserva.getEstado().equals(ReservaEstado.RESERVADO)) {
             throw new RuntimeException("Essa reserva ja foi finalizada ou cancelada");
         }
-        if (reserva.getEstado().equals(EnumEstado.EM_ANDAMENTO)) {
+        if (reserva.getEstado().equals(ReservaEstado.EM_ANDAMENTO)) {
             throw new RuntimeException("Reserva já em andamento!!!");
         }
 
-        reserva.setEstado(EnumEstado.EM_ANDAMENTO);
+        reserva.setEstado(ReservaEstado.EM_ANDAMENTO);
 
         return reservaRepository.save(reserva);
     }
@@ -60,14 +63,14 @@ public class ReservaService {
         Reserva reserva = reservaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("reserva não encontrada!!!"));
 
-        if (!reserva.getEstado().equals(EnumEstado.RESERVADO)) {
+        if (!reserva.getEstado().equals(ReservaEstado.RESERVADO)) {
             throw new RuntimeException("Essa reserva ja foi finalizada ou cancelada");
         }
-        if (reserva.getEstado().equals(EnumEstado.CANCELADO)) {
+        if (reserva.getEstado().equals(ReservaEstado.CANCELADO)) {
             throw new RuntimeException("Reserva já foi cancelada!!!");
         }
 
-        reserva.setEstado(EnumEstado.CANCELADO);
+        reserva.setEstado(ReservaEstado.CANCELADO);
 
         return reservaRepository.save(reserva);
     }
@@ -97,16 +100,10 @@ public class ReservaService {
     }
 
     public List<Reserva> getByHospede(Optional<Hospede> hospede) {
-        if (hospede.isPresent()) {
-            return reservaRepository.searchByHospede(hospede.get());
-        }
-        return null;
+        return hospede.map(reservaRepository::searchByHospede).orElse(null);
     }
 
     public List<Reserva> getByQuarto(Optional<Quarto> quarto) {
-        if (quarto.isPresent()) {
-            return reservaRepository.searchByQuarto(quarto.get());
-        }
-        return null;
+        return quarto.map(reservaRepository::searchByQuarto).orElse(null);
     }
 }
