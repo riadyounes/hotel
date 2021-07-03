@@ -1,7 +1,6 @@
 package com.agendamento.hotel.controller;
 
 import com.agendamento.hotel.model.Hospede;
-import com.agendamento.hotel.model.Quarto;
 import com.agendamento.hotel.model.Reserva;
 import com.agendamento.hotel.service.HospedeService;
 import com.agendamento.hotel.service.HotelService;
@@ -13,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -33,7 +33,7 @@ public class ReservaController {
     }
 
     @PostMapping
-    public ResponseEntity<Reserva> store(@RequestBody Reserva reserva) {
+    public ResponseEntity<Reserva> store(@Valid @RequestBody Reserva reserva) {
         return ResponseEntity.ok(reservaService.store(reserva));
     }
 
@@ -97,7 +97,7 @@ public class ReservaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Reserva> update(@PathVariable Long id, @RequestBody Reserva reserva) {
+    public ResponseEntity<Reserva> update(@PathVariable Long id, @Valid @RequestBody Reserva reserva) {
         Optional<Reserva> optionalReserva = reservaService.show(id);
 
         if (optionalReserva.isPresent()) {
