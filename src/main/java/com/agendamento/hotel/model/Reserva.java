@@ -1,8 +1,11 @@
 package com.agendamento.hotel.model;
 
+import com.agendamento.hotel.enums.ReservaEstado;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 
 @Entity
@@ -12,29 +15,34 @@ public class Reserva {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate data_entrada;
 
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate data_saida;
 
-    private EnumEstado estado;
+    private ReservaEstado estado;
 
+    @NotBlank(message = "Preço total é obrigatório")
+    @Min(value = 0, message = "Preço total deve ser positivo")
     private Float preco_total;
 
+    @NotBlank(message = "Usuário é obrigatório")
     @OneToOne
     private Usuario usuario;
 
+    @NotBlank(message = "Hospede é obrigatório")
     @ManyToOne
     private Hospede hospede;
 
+    @NotBlank(message = "Quarto é obrigatório")
     @ManyToOne
     private Quarto quarto;
 
     public Reserva() {
     }
 
-    public Reserva(LocalDate data_entrada, LocalDate data_saida, EnumEstado estado, Float preco_total, Usuario usuario, Hospede hospede, Quarto quarto) {
+    public Reserva(LocalDate data_entrada, LocalDate data_saida, ReservaEstado estado, Float preco_total, Usuario usuario, Hospede hospede, Quarto quarto) {
         this.data_entrada = data_entrada;
         this.data_saida = data_saida;
         this.estado = estado;
@@ -76,11 +84,11 @@ public class Reserva {
         this.preco_total = preco_total;
     }
 
-    public EnumEstado getEstado() {
+    public ReservaEstado getEstado() {
         return estado;
     }
 
-    public void setEstado(EnumEstado estado) {
+    public void setEstado(ReservaEstado estado) {
         this.estado = estado;
     }
 
