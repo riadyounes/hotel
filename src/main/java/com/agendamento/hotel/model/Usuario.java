@@ -1,11 +1,14 @@
 package com.agendamento.hotel.model;
 
-import java.io.Serializable;
-import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 @Entity
 public class Usuario implements Serializable {
@@ -15,14 +18,19 @@ public class Usuario implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Nome é obrigatório")
+    @Size(min = 3, max = 80, message = "Nome deve ter entre 3 a 80 carateres")
     private String nome;
 
+    @NotBlank(message = "Email é obrigatório")
+    @Email(message = "Email deve ser válido")
     private String email;
 
+    @NotBlank(message = "Senha é obrigatória")
+    @Min(value = 8, message = "Senha deve ter pelo menos 8 carateres")
     private String senha;
 
     public Usuario(Long id, String nome, String email, String senha) {
-        super();
         this.id = id;
         this.nome = nome;
         this.email = email;
@@ -30,7 +38,6 @@ public class Usuario implements Serializable {
     }
 
     public Usuario() {
-
     }
 
     public Long getId() {
