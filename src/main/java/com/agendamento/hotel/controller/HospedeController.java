@@ -1,13 +1,12 @@
 package com.agendamento.hotel.controller;
 
 import com.agendamento.hotel.model.Hospede;
-import com.agendamento.hotel.model.Hotel;
 import com.agendamento.hotel.service.HospedeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +22,7 @@ public class HospedeController {
     }
 
     @PostMapping
-    public ResponseEntity<Hospede> store(@RequestBody Hospede hospede) {
+    public ResponseEntity<Hospede> store(@Valid @RequestBody Hospede hospede) {
         return ResponseEntity.ok(hospedeService.store(hospede));
     }
 
@@ -38,7 +37,7 @@ public class HospedeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Hospede> update(@PathVariable Long id, @RequestBody Hospede hospede) {
+    public ResponseEntity<Hospede> update(@PathVariable Long id, @Valid @RequestBody Hospede hospede) {
         Optional<Hospede> optionalHospede = hospedeService.show(id);
 
         if (optionalHospede.isPresent()) {
