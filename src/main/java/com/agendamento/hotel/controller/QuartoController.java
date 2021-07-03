@@ -1,16 +1,12 @@
 package com.agendamento.hotel.controller;
 
-import com.agendamento.hotel.model.Hotel;
 import com.agendamento.hotel.model.Quarto;
-import com.agendamento.hotel.model.Reserva;
 import com.agendamento.hotel.service.QuartoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,7 +22,7 @@ public class QuartoController {
     }
 
     @PostMapping
-    public ResponseEntity<Quarto> store(@RequestBody Quarto quarto) {
+    public ResponseEntity<Quarto> store(@Valid @RequestBody Quarto quarto) {
         return ResponseEntity.ok(quartoService.store(quarto));
     }
 
@@ -48,7 +44,7 @@ public class QuartoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Quarto> update(@PathVariable Long id, @RequestBody Quarto quarto) {
+    public ResponseEntity<Quarto> update(@PathVariable Long id, @Valid @RequestBody Quarto quarto) {
         Optional<Quarto> optionalQuarto = quartoService.show(id);
 
         if (optionalQuarto.isPresent()) {

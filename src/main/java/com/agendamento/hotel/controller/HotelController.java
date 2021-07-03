@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,7 +22,7 @@ public class HotelController {
     }
 
     @PostMapping
-    public ResponseEntity<Hotel> store(@RequestBody Hotel hotel) {
+    public ResponseEntity<Hotel> store(@Valid @RequestBody Hotel hotel) {
         return ResponseEntity.ok(hotelService.store(hotel));
     }
 
@@ -36,7 +37,7 @@ public class HotelController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Hotel> update(@PathVariable Long id, @RequestBody Hotel hotel) {
+    public ResponseEntity<Hotel> update(@PathVariable Long id, @Valid @RequestBody Hotel hotel) {
         Optional<Hotel> optionalHotel = hotelService.show(id);
 
         if (optionalHotel.isPresent()) {

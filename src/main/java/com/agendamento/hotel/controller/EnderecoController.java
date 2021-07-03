@@ -1,13 +1,12 @@
 package com.agendamento.hotel.controller;
 
 import com.agendamento.hotel.model.Endereco;
-import com.agendamento.hotel.model.Hotel;
 import com.agendamento.hotel.service.EnderecoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,7 +23,7 @@ public class EnderecoController {
     }
 
     @PostMapping
-    public ResponseEntity<Endereco> store(@RequestBody Endereco endereco) {
+    public ResponseEntity<Endereco> store(@Valid @RequestBody Endereco endereco) {
         return ResponseEntity.ok(enderecoService.store(endereco));
     }
 
@@ -39,7 +38,7 @@ public class EnderecoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Endereco> update(@PathVariable Long id, @RequestBody Endereco endereco) {
+    public ResponseEntity<Endereco> update(@PathVariable Long id, @Valid @RequestBody Endereco endereco) {
         Optional<Endereco> optionalEndereco = enderecoService.show(id);
 
         if (optionalEndereco.isPresent()) {

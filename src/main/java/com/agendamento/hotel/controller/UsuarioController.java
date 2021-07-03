@@ -1,13 +1,12 @@
 package com.agendamento.hotel.controller;
 
-import com.agendamento.hotel.model.Hotel;
 import com.agendamento.hotel.model.Usuario;
 import com.agendamento.hotel.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,7 +24,7 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public ResponseEntity<Usuario> store(@RequestBody Usuario usuario) {
+    public ResponseEntity<Usuario> store(@Valid @RequestBody Usuario usuario) {
         return ResponseEntity.ok(usuarioService.store(usuario));
     }
 
@@ -40,7 +39,7 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Usuario> update(@PathVariable Long id, @RequestBody Usuario usuario) {
+    public ResponseEntity<Usuario> update(@PathVariable Long id, @Valid @RequestBody Usuario usuario) {
         Optional<Usuario> optionalUsuario = usuarioService.show(id);
 
         if (optionalUsuario.isPresent()) {

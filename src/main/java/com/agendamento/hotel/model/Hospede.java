@@ -4,6 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -15,20 +18,30 @@ public class Hospede implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Nome é obrigatório")
+    @Size(min = 3, max = 80, message = "Nome deve ter entre 3 a 80 carateres")
     private String nome;
 
+    @NotBlank(message = "CPF é obrigatório")
+    @Size(min = 11, max = 11, message = "CPF deve ter 11 digitos")
     private String cpf;
 
+    @NotBlank(message = "Email é obrigatório")
+    @Email(message = "Email deve ser válido")
     private String email;
 
+    @NotBlank(message = "Data de nascimento é obrigatória")
     private LocalDate data_nascimento;
 
+    @NotBlank(message = "Telefone é obrigatório")
+    @Size(min = 8, max = 25, message = "Telefone deve ter entre 8 a 25 digitos")
     private String telefone;
 
+    @NotBlank(message = "Nacionalidade é obrigatória")
+    @Size(min = 3, max = 80, message = "Nacionalidade deve ter entre 3 a 80 carateres")
     private String nacionalidade;
 
     public Hospede() {
-
     }
 
     public Hospede(Long id, String nome, String cpf, String email, LocalDate data_nascimento, String telefone,
