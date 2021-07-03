@@ -1,6 +1,7 @@
 package com.agendamento.hotel.unit;
 
-import com.agendamento.hotel.model.*;
+import com.agendamento.hotel.enums.ReservaEstado;
+import com.agendamento.hotel.model.Reserva;
 import com.agendamento.hotel.service.ReservaService;
 import com.github.javafaker.Faker;
 import org.junit.jupiter.api.Assertions;
@@ -20,14 +21,14 @@ import java.util.Optional;
 public class ReservaTest {
     @Autowired
     private ReservaService reservaService;
-    private Faker faker = new Faker(new Locale("pt-br"));
+    private final Faker faker = new Faker(new Locale("pt-br"));
 
     @Test
     void store() {
         Reserva reserva = new Reserva();
         reserva.setData_entrada(LocalDate.of(2020, 5, 29));
         reserva.setData_saida(LocalDate.of(2021, 5, 29));
-        reserva.setEstado(EnumEstado.FINALIZADO);
+        reserva.setEstado(ReservaEstado.FINALIZADO);
         reserva.setPreco_total(Float.parseFloat(faker.commerce().price()));
 
         Reserva result = reservaService.store(reserva);
@@ -48,7 +49,7 @@ public class ReservaTest {
         Reserva reserva = new Reserva();
         reserva.setData_entrada(LocalDate.of(2020, 6, 30));
         reserva.setData_saida(LocalDate.of(2021, 7, 15));
-        reserva.setEstado(EnumEstado.EM_ANDAMENTO);
+        reserva.setEstado(ReservaEstado.EM_ANDAMENTO);
         reserva.setPreco_total(Float.parseFloat(faker.commerce().price()));
 
         reservaService.store(reserva);
@@ -64,13 +65,13 @@ public class ReservaTest {
         Reserva reserva = new Reserva();
         reserva.setData_entrada(LocalDate.of(2021, 7, 20));
         reserva.setData_saida(LocalDate.of(2021, 7, 23));
-        reserva.setEstado(EnumEstado.RESERVADO);
+        reserva.setEstado(ReservaEstado.RESERVADO);
         reserva.setPreco_total(Float.parseFloat(faker.commerce().price()));
 
         Reserva reserva2 = new Reserva();
         reserva.setData_entrada(LocalDate.of(2021, 5, 1));
         reserva.setData_saida(LocalDate.of(2023, 5, 3));
-        reserva.setEstado(EnumEstado.EM_ANDAMENTO);
+        reserva.setEstado(ReservaEstado.EM_ANDAMENTO);
         reserva.setPreco_total(Float.parseFloat(faker.commerce().price()));
 
         reservaService.store(reserva);
@@ -85,7 +86,7 @@ public class ReservaTest {
           Reserva reserva = new Reserva();
           reserva.setData_entrada(LocalDate.of(2020, 3, 4));
           reserva.setData_saida(LocalDate.of(2020, 3, 7));
-          reserva.setEstado(EnumEstado.CANCELADO);
+          reserva.setEstado(ReservaEstado.CANCELADO);
           reserva.setPreco_total(Float.parseFloat(faker.commerce().price()));
 
          Reserva result = reservaService.store(reserva);
@@ -102,7 +103,7 @@ public class ReservaTest {
           Reserva reserva = new Reserva();
           reserva.setData_entrada(LocalDate.of(2020, 12, 25));
           reserva.setData_saida(LocalDate.of(2021, 1, 5));
-          reserva.setEstado(EnumEstado.RESERVADO);
+          reserva.setEstado(ReservaEstado.RESERVADO);
           reserva.setPreco_total(Float.parseFloat(faker.commerce().price()));
 
          Reserva result = reservaService.store(reserva);

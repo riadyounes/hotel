@@ -1,11 +1,9 @@
-package com.agendamento.hotel.model;
+package com.agendamento.hotel.enums;
 
 
-public enum EnumEstado {
-
+public enum ReservaEstado {
     RESERVADO,
     EM_ANDAMENTO,
     FINALIZADO,
     CANCELADO
-
 }
