@@ -1,5 +1,6 @@
 package com.agendamento.hotel.unit;
 
+import com.agendamento.hotel.model.Endereco;
 import com.agendamento.hotel.model.Hotel;
 import com.agendamento.hotel.service.HotelService;
 import com.github.javafaker.Faker;
@@ -19,15 +20,18 @@ import java.util.Optional;
 public class HotelTest {
     @Autowired
     private HotelService hotelService;
-    private Faker faker = new Faker(new Locale("pt-br"));
+    private final Faker faker = new Faker(new Locale("pt-br"));
 
     @Test
     void store() {
+        Endereco endereco = new Endereco();
+        endereco.setId((long) faker.number().numberBetween(1, 4));
 
         System.out.println(faker.name().fullName());
         Hotel hotel = new Hotel();
         hotel.setNome(faker.name().fullName());
-        hotel.setClassificacao((float)faker.number().numberBetween(1, 5));
+        hotel.setClassificacao((float) faker.number().numberBetween(1, 5));
+        hotel.setEndereco(endereco);
 
         Hotel result = hotelService.store(hotel);
         Assertions.assertEquals(hotel, result);
@@ -35,9 +39,13 @@ public class HotelTest {
 
     @Test
     void show() {
+        Endereco endereco = new Endereco();
+        endereco.setId((long) faker.number().numberBetween(1, 4));
+
         Hotel hotel = new Hotel();
         hotel.setNome(faker.name().fullName());
-        hotel.setClassificacao((float)faker.number().numberBetween(1, 5));
+        hotel.setClassificacao((float) faker.number().numberBetween(1, 5));
+        hotel.setEndereco(endereco);
 
         hotelService.store(hotel);
 
@@ -49,26 +57,29 @@ public class HotelTest {
     void index() {
         List<Hotel> before = hotelService.index();
 
+        Endereco endereco = new Endereco();
+        endereco.setId((long) faker.number().numberBetween(1, 4));
+
         Hotel hotel = new Hotel();
         hotel.setNome(faker.name().fullName());
-        hotel.setClassificacao((float)faker.number().numberBetween(1, 5));
-
-        Hotel hotel2 = new Hotel();
-        hotel.setNome(faker.name().fullName());
         hotel.setClassificacao((float) faker.number().numberBetween(1, 5));
+        hotel.setEndereco(endereco);
 
         hotelService.store(hotel);
-        hotelService.store(hotel2);
 
         List<Hotel> after = hotelService.index();
-        Assertions.assertEquals(after.size(), before.size() + 2);
+        Assertions.assertEquals(after.size(), before.size() + 1);
     }
 
     @Test
     void update() {
+        Endereco endereco = new Endereco();
+        endereco.setId((long) faker.number().numberBetween(1, 4));
+
         Hotel hotel = new Hotel();
         hotel.setNome(faker.name().fullName());
         hotel.setClassificacao((float) faker.number().numberBetween(1, 5));
+        hotel.setEndereco(endereco);
 
         Hotel result = hotelService.store(hotel);
         result.setNome(faker.name().fullName());
@@ -81,9 +92,13 @@ public class HotelTest {
     void destroy() {
         List<Hotel> before = hotelService.index();
 
+        Endereco endereco = new Endereco();
+        endereco.setId((long) faker.number().numberBetween(1, 4));
+
         Hotel hotel = new Hotel();
         hotel.setNome(faker.name().fullName());
         hotel.setClassificacao((float) faker.number().numberBetween(1, 5));
+        hotel.setEndereco(endereco);
 
         Hotel result = hotelService.store(hotel);
 

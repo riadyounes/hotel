@@ -1,7 +1,5 @@
 package com.agendamento.hotel.unit;
 
-import com.agendamento.hotel.model.Hospede;
-import com.agendamento.hotel.model.Quarto;
 import com.agendamento.hotel.model.Usuario;
 import com.agendamento.hotel.service.UsuarioService;
 import com.github.javafaker.Faker;
@@ -21,11 +19,10 @@ public class UsuarioTest {
 
     @Autowired
     private UsuarioService usuarioService;
-    private Faker faker = new Faker(new Locale("pt-br"));
+    private final Faker faker = new Faker(new Locale("pt-br"));
 
     @Test
-    void store(){
-
+    void store() {
         Usuario usuario = new Usuario();
         usuario.setNome(faker.name().name());
         usuario.setEmail(faker.internet().emailAddress());
@@ -36,8 +33,7 @@ public class UsuarioTest {
     }
 
     @Test
-    void show(){
-
+    void show() {
         Usuario usuario = new Usuario();
         usuario.setNome(faker.name().name());
         usuario.setEmail(faker.internet().emailAddress());
@@ -50,32 +46,23 @@ public class UsuarioTest {
     }
 
     @Test
-    void index(){
-
+    void index() {
         List<Usuario> before = usuarioService.index();
-
 
         Usuario usuario = new Usuario();
         usuario.setNome(faker.name().name());
         usuario.setEmail(faker.internet().emailAddress());
         usuario.setSenha(faker.random().hex());
 
-        Usuario usuario2 = new Usuario();
-        usuario2.setNome(faker.name().name());
-        usuario2.setEmail(faker.internet().emailAddress());
-        usuario2.setSenha(faker.random().hex());
-
         usuarioService.store(usuario);
-        usuarioService.store(usuario2);
 
         List<Usuario> after = usuarioService.index();
-        Assertions.assertEquals(after.size(), before.size()+2);
+        Assertions.assertEquals(after.size(), before.size() + 1);
 
     }
 
     @Test
-    void update(){
-
+    void update() {
         Usuario usuario = new Usuario();
         usuario.setNome(faker.name().name());
         usuario.setEmail(faker.internet().emailAddress());
@@ -85,12 +72,11 @@ public class UsuarioTest {
 
         resultdb.setNome(faker.name().name());
         Usuario updateUsuario = usuarioService.update(resultdb);
-        Assertions.assertEquals(resultdb.getNome(),updateUsuario.getNome());
+        Assertions.assertEquals(resultdb.getNome(), updateUsuario.getNome());
     }
 
     @Test
-    void destroy(){
-
+    void destroy() {
         List<Usuario> before = usuarioService.index();
 
         Usuario usuario = new Usuario();
@@ -103,9 +89,7 @@ public class UsuarioTest {
         resultdb.setId(resultdb.getId());
         usuarioService.destroy(resultdb.getId());
 
-
         List<Usuario> after = usuarioService.index();
-         Assertions.assertEquals(after.size(), before.size());
-
+        Assertions.assertEquals(after.size(), before.size());
     }
 }

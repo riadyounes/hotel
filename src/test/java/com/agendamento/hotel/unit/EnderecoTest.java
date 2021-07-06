@@ -19,7 +19,7 @@ public class EnderecoTest {
 
     @Autowired
     private EnderecoService enderecoService;
-    private Faker faker = new Faker(new Locale("pt-br"));
+    private final Faker faker = new Faker(new Locale("pt-br"));
 
     @Test
     void store() {
@@ -61,18 +61,10 @@ public class EnderecoTest {
         endereco.setNumero(faker.address().buildingNumber());
         endereco.setComplemento(faker.address().secondaryAddress());
 
-        Endereco endereco2 = new Endereco();
-        endereco.setEstado(faker.address().state());
-        endereco.setCidade(faker.address().city());
-        endereco.setLogradouro(faker.address().streetName());
-        endereco.setNumero(faker.address().buildingNumber());
-        endereco.setComplemento(faker.address().secondaryAddress());
-
         enderecoService.store(endereco);
-        enderecoService.store(endereco2);
 
         List<Endereco> after = enderecoService.index();
-        Assertions.assertEquals(after.size(), before.size() + 2);
+        Assertions.assertEquals(after.size(), before.size() + 1);
     }
 
     @Test
