@@ -1,11 +1,10 @@
 package com.agendamento.hotel.model;
 
 import com.agendamento.hotel.enums.ReservaEstado;
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
@@ -15,27 +14,27 @@ public class Reserva {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "Data de entrada é obrigatória")
     private LocalDate data_entrada;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "Data de saida é obrigatória")
     private LocalDate data_saida;
 
     private ReservaEstado estado;
 
-    @NotBlank(message = "Preço total é obrigatório")
+    @NotNull(message = "Preço total é obrigatório")
     @Min(value = 0, message = "Preço total deve ser positivo")
     private Float preco_total;
 
-    @NotBlank(message = "Usuário é obrigatório")
+    @NotNull(message = "Usuário é obrigatório")
     @OneToOne
     private Usuario usuario;
 
-    @NotBlank(message = "Hospede é obrigatório")
+    @NotNull(message = "Hospede é obrigatório")
     @ManyToOne
     private Hospede hospede;
 
-    @NotBlank(message = "Quarto é obrigatório")
+    @NotNull(message = "Quarto é obrigatório")
     @ManyToOne
     private Quarto quarto;
 
