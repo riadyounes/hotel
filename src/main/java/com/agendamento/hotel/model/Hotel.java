@@ -1,10 +1,7 @@
 package com.agendamento.hotel.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 
 @Entity
@@ -18,12 +15,12 @@ public class Hotel {
     @Size(min = 3, max = 80, message = "Nome deve ter entre 3 a 80 carateres")
     private String nome;
 
-    @NotBlank(message = "Classificação é obrigatória")
+    @NotNull(message = "Classificação é obrigatória")
     @Min(value = 0, message = "Classificação deve ser maior ou igual a 0")
     @Max(value = 5, message = "Classificação deve ser menor ou igual a 5")
     private Float classificacao;
 
-    @NotBlank(message = "Endereço é obrigatório")
+    @NotNull(message = "Endereço é obrigatório")
     @OneToOne
     private Endereco endereco;
 
