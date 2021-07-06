@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -30,7 +31,7 @@ public class Hospede implements Serializable {
     @Email(message = "Email deve ser válido")
     private String email;
 
-    @NotBlank(message = "Data de nascimento é obrigatória")
+    @NotNull(message = "Data de nascimento é obrigatória")
     private LocalDate data_nascimento;
 
     @NotBlank(message = "Telefone é obrigatório")
