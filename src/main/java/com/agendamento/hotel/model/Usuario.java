@@ -5,7 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -27,7 +26,7 @@ public class Usuario implements Serializable {
     private String email;
 
     @NotBlank(message = "Senha é obrigatória")
-    @Min(value = 8, message = "Senha deve ter pelo menos 8 carateres")
+    @Size(min = 8, message = "Senha deve ter pelo menos 8 carateres")
     private String senha;
 
     public Usuario(Long id, String nome, String email, String senha) {
