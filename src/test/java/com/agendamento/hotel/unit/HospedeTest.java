@@ -20,7 +20,7 @@ public class HospedeTest {
 
     @Autowired
     private HospedeService hospedeService;
-    private Faker faker = new Faker(new Locale("pt-br"));
+    private final Faker faker = new Faker(new Locale("pt-br"));
 
     @Test
     void store() {
@@ -67,20 +67,10 @@ public class HospedeTest {
         hospede.setTelefone(faker.phoneNumber().cellPhone());
         hospede.setNacionalidade(faker.nation().nationality());
 
-        LocalDate date2 = LocalDate.of(1995, 6, 29);
-        Hospede hospede2 = new Hospede();
-        hospede.setNome(faker.name().name());
-        hospede.setCpf(faker.idNumber().valid());
-        hospede.setEmail(faker.internet().emailAddress());
-        hospede.setData_nascimento(date2);
-        hospede.setTelefone(faker.phoneNumber().cellPhone());
-        hospede.setNacionalidade(faker.nation().nationality());
-
         hospedeService.store(hospede);
-        hospedeService.store(hospede2);
 
         List<Hospede> after = hospedeService.index();
-        Assertions.assertEquals(after.size(), before.size()+2);
+        Assertions.assertEquals(after.size(), before.size() + 1);
     }
 
     @Test
