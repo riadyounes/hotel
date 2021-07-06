@@ -3,6 +3,7 @@ package com.agendamento.hotel.model;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Quarto {
@@ -13,18 +14,18 @@ public class Quarto {
     @NotBlank(message = "Número é obrigatório")
     private String numero;
 
-    @NotBlank(message = "Preço é obrigatório")
+    @NotNull(message = "Preço é obrigatório")
     @Min(value = 0, message = "Preço deve ser positivo")
     private Float preco;
 
-    @NotBlank(message = "Ocupação é obrigatório")
+    @NotNull(message = "Ocupação é obrigatório")
     @Min(value = 0, message = "Ocupação deve ser positivo")
     private Integer quant_ocupacao;
 
     @NotBlank(message = "Detalhes é obrigatório")
     private String detalhes;
 
-    @NotBlank(message = "Hotel é obrigatório")
+    @NotNull(message = "Hotel é obrigatório")
     @ManyToOne
     private Hotel hotel;
 
