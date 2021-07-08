@@ -1,6 +1,6 @@
 package com.agendamento.hotel.controller;
 
-import com.agendamento.hotel.model.Hospede;
+import com.agendamento.hotel.enums.ReservaEstado;
 import com.agendamento.hotel.model.Reserva;
 import com.agendamento.hotel.service.HospedeService;
 import com.agendamento.hotel.service.HotelService;
@@ -8,7 +8,6 @@ import com.agendamento.hotel.service.QuartoService;
 import com.agendamento.hotel.service.ReservaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,44 +51,19 @@ public class ReservaController {
         return ResponseEntity.ok(reservaService.cancelar(id));
     }
 
-
     @GetMapping
-    public ResponseEntity<List<Reserva>> index() {
-        return ResponseEntity.ok(reservaService.index());
-    }
-
-    @GetMapping("/search")
-    public ResponseEntity<List<Reserva>> searchByDate(
-            @RequestParam("data_entrada") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data_entrada,
-            @RequestParam("data_saida") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data_saida) {
-        return ResponseEntity.ok(reservaService.searchByDate(data_entrada, data_saida));
-    }
-
-    @GetMapping("/hospede/{id}")
-    public ResponseEntity<?> searchByHopede(@PathVariable Long id) {
-        Optional<Hospede> hospede = hospedeService.show(id);
-
-        List<Reserva> list = reservaService.getByHospede(hospede);
-
-        if (hospede.isPresent()) {
-
-            return new ResponseEntity<>(list, null, HttpStatus.OK);
+    public ResponseEntity<List<Reserva>> index(
+            @RequestParam(name = "data_entrada", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data_entrada,
+            @RequestParam(name = "data_saida", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data_saida,
+            @RequestParam(name = "estado", required = false) ReservaEstado estado,
+            @RequestParam(name = "hospede_id", required = false) Long hospede_id,
+            @RequestParam(name = "quarto_id", required = false) Long quarto_id) {
+        if (data_entrada == null && data_saida == null && estado == null && hospede_id == null && quarto_id == null) {
+            return ResponseEntity.ok(reservaService.index());
         }
-        return new ResponseEntity<>(list, null, HttpStatus.NO_CONTENT);
-    }
 
-//    @GetMapping("/quarto/{id}")
-//    public ResponseEntity<Reserva> searchByQuarto(@PathVariable Long id) {
-//        Optional<Quarto> quarto = quartoService.show(id);
-//
-//        List<Reserva> list = reservaService.getByQuarto(quarto);
-//
-//        if (quarto.isPresent()) {
-//
-//            return new ResponseEntity<>(list, null, HttpStatus.OK);
-//        }
-//        return new ResponseEntity<>(list, null, HttpStatus.NO_CONTENT);
-//    }
+        return ResponseEntity.ok(reservaService.index(data_entrada, data_saida, estado, hospede_id, quarto_id));
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Reserva>> show(@PathVariable Long id) {
