@@ -3,10 +3,12 @@ package com.agendamento.hotel.controller;
 import com.agendamento.hotel.model.Quarto;
 import com.agendamento.hotel.service.QuartoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,16 +28,16 @@ public class QuartoController {
         return ResponseEntity.ok(quartoService.store(quarto));
     }
 
-//    @GetMapping("/search")
-//    public ResponseEntity<List<Quarto>> searchByDate(
-//            @RequestParam("data_entrada") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data_entrada,
-//            @RequestParam("data_saida") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data_saida) {
-//        return ResponseEntity.ok(quartoService.searchByDate(data_entrada, data_saida));
-//    }
-
     @GetMapping
-    public ResponseEntity<List<Quarto>> index() {
-        return ResponseEntity.ok(quartoService.index());
+    public ResponseEntity<List<Quarto>> index(
+            @RequestParam(name = "data_entrada", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data_entrada,
+            @RequestParam(name = "data_saida", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data_saida
+    ) {
+        if (data_entrada == null && data_saida == null) {
+            return ResponseEntity.ok(quartoService.index());
+        }
+
+        return ResponseEntity.ok(quartoService.index(data_entrada, data_saida));
     }
 
     @GetMapping("/{id}")
