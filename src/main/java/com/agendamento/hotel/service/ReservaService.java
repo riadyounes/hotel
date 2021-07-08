@@ -1,11 +1,10 @@
 package com.agendamento.hotel.service;
 
 import com.agendamento.hotel.enums.ReservaEstado;
-import com.agendamento.hotel.model.Hospede;
-import com.agendamento.hotel.model.Quarto;
 import com.agendamento.hotel.model.Reserva;
 import com.agendamento.hotel.repository.ReservaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -50,6 +49,7 @@ public class ReservaService {
         if (!reserva.getEstado().equals(ReservaEstado.RESERVADO)) {
             throw new RuntimeException("Essa reserva ja foi finalizada ou cancelada");
         }
+
         if (reserva.getEstado().equals(ReservaEstado.EM_ANDAMENTO)) {
             throw new RuntimeException("Reserva já em andamento!!!");
         }
@@ -66,6 +66,7 @@ public class ReservaService {
         if (!reserva.getEstado().equals(ReservaEstado.RESERVADO)) {
             throw new RuntimeException("Essa reserva ja foi finalizada ou cancelada");
         }
+
         if (reserva.getEstado().equals(ReservaEstado.CANCELADO)) {
             throw new RuntimeException("Reserva já foi cancelada!!!");
         }
@@ -79,8 +80,8 @@ public class ReservaService {
         return reservaRepository.findAll();
     }
 
-    public List<Reserva> searchByDate(LocalDate data_entrada, LocalDate data_saida) {
-        return reservaRepository.searchByDate(data_entrada, data_saida);
+    public List<Reserva> index(@Nullable LocalDate data_entrada, @Nullable LocalDate data_saida, @Nullable ReservaEstado estado, @Nullable Long hospede_id, @Nullable Long quarto_id) {
+        return reservaRepository.search(data_entrada, data_saida, estado, hospede_id, quarto_id);
     }
 
     public Optional<Reserva> show(long id) {
@@ -97,13 +98,5 @@ public class ReservaService {
         if (optionalReserva.isPresent()) {
             reservaRepository.deleteById(id);
         }
-    }
-
-    public List<Reserva> getByHospede(Optional<Hospede> hospede) {
-        return hospede.map(reservaRepository::searchByHospede).orElse(null);
-    }
-
-    public List<Reserva> getByQuarto(Optional<Quarto> quarto) {
-        return quarto.map(reservaRepository::searchByQuarto).orElse(null);
     }
 }
