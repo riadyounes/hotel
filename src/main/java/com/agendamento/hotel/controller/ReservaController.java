@@ -72,13 +72,7 @@ public class ReservaController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Reserva> update(@PathVariable Long id, @Valid @RequestBody Reserva reserva) {
-        Optional<Reserva> optionalReserva = reservaService.show(id);
-
-        if (optionalReserva.isPresent()) {
-            return ResponseEntity.ok(reservaService.update(reserva));
-        } else {
-            return null;
-        }
+        return ResponseEntity.ok(reservaService.update(id, reserva));
     }
 
     @DeleteMapping("/{id}")
