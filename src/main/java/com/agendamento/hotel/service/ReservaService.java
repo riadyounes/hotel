@@ -88,7 +88,14 @@ public class ReservaService {
         return reservaRepository.findById(id);
     }
 
-    public Reserva update(Reserva reserva) {
+    public Reserva update(Long id, Reserva editReserva) {
+        Reserva reserva = reservaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("reserva não encontrada!!!"));
+
+        reserva.setData_entrada(editReserva.getData_entrada());
+        reserva.setData_saida(editReserva.getData_saida());
+        reserva.setPreco_total(editReserva.getPreco_total());
+
         return reservaRepository.save(reserva);
     }
 

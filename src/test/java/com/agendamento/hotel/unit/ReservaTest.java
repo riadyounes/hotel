@@ -136,7 +136,7 @@ public class ReservaTest {
         Reserva result = reservaService.store(reserva);
         reserva.setData_saida(LocalDate.of(2020, 3, 8));
 
-        Reserva update = reservaService.update(result);
+        Reserva update = reservaService.update(reserva.getId(), result);
         Assertions.assertEquals(result.getData_saida(), update.getData_saida());
     }
 
