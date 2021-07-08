@@ -1,7 +1,6 @@
 package com.agendamento.hotel.service;
 
 import com.agendamento.hotel.model.Quarto;
-import com.agendamento.hotel.model.Reserva;
 import com.agendamento.hotel.repository.QuartoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +26,10 @@ public class QuartoService {
         return quartoRepository.findAll();
     }
 
+    public List<Quarto> index(LocalDate data_entrada, LocalDate data_saida) {
+        return quartoRepository.search(data_entrada, data_saida);
+    }
+
     public Optional<Quarto> show(Long id) {
         return quartoRepository.findById(id);
     }
@@ -42,22 +45,4 @@ public class QuartoService {
             quartoRepository.deleteById(id);
         }
     }
-
-//    public List<Quarto> searchByDate(LocalDate data_entrada, LocalDate data_saida) {
-//
-//
-//        availible = null, dates = null;
-//        availible = quartoRepository.searchAvailable();
-//        dates = (quartoRepository.searchByDate(data_entrada, data_saida));
-//        for (long i = 0; i < availible.size(); i++) {
-//            for (long x = 0; x < dates.size(); x++) {
-//                if (availible[i][0]) {
-//                }
-//
-//            }
-//
-//
-//            return quartoList;
-//        }
-//    }
 }
